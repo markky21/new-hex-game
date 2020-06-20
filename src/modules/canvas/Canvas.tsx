@@ -5,11 +5,11 @@ import { Scene } from './components/Scene';
 
 export const Canvas: React.FC = () => {
   return (
-    <ThreeCanvas style={{ backgroundColor: 'black' }}>
+    <ThreeCanvas style={{ backgroundColor: 'black ' }}>
       <Scene>
         <mesh>
-          <ringBufferGeometry attach="geometry" args={[10, 10, 6]} />
-          <meshStandardMaterial color={'red'} attach={'material'} />
+          <ringBufferGeometry attach="geometry" args={[0.1, 0.1, 6]} />
+          <meshStandardMaterial color={'red'} attach={'material'} wireframe={true}/>
         </mesh>
       </Scene>
     </ThreeCanvas>
