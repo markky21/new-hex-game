@@ -49,5 +49,13 @@
       "pre-commit": "npm run pretty",
       "pre-push": "npm run pretty"
     }
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "jsxBracketSameLine": true,
+    "tabWidth": 2,
+    "printWidth": 120
   }
 }
