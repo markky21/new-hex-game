@@ -1,10 +1,15 @@
 import { Tokens } from '../../../models/hex.model';
+import { Dictionary } from '../../../models/main.model';
 
 export interface FieldEffect {}
 
-export interface BoardInterface {
-  [key: string]: { coordinates: [number, number, number]; occupied?: Tokens; effects?: FieldEffect };
+export interface BoardFieldInterface {
+  coordinates: [number, number, number];
+  occupied?: Tokens;
+  effects?: FieldEffect;
 }
+
+export type BoardInterface = Dictionary<BoardFieldInterface>;
 
 export const smallBoard: BoardInterface = {
   a1: { coordinates: [-2, 3.464101552963257, 0] },
