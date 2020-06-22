@@ -27,4 +27,13 @@ declare global {
   }
 }
 
-extend({ OrbitControls, EffectComposer, RenderPass, UnrealBloomPass, GlitchPass, ShaderPass, AfterimagePass });
+extend({
+  AfterimagePass,
+  EffectComposer,
+  FilmPass,
+  GlitchPass,
+  OrbitControls,
+  RenderPass,
+  ShaderPass,
+  UnrealBloomPass,
+});
