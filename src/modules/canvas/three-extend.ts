@@ -5,7 +5,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ReactThreeFiber } from 'react-three-fiber/three-types';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
-import { GlitchPass } from './Effects/Glitchpass';
+import { GlitchPass } from './VFXEffects/Glitchpass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass';

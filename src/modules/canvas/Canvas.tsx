@@ -5,9 +5,9 @@ import { Canvas as ThreeCanvas } from 'react-three-fiber';
 import { Color, Object3D, PCFSoftShadowMap, Uncharted2ToneMapping, Vector3 } from 'three';
 
 import { BackgroundBoard } from './components/BackgroundBoard/BackgroundBoard';
-import { BoardToken } from './components/BoardToken/BoardTocken';
+import { Token } from './components/Token/Token';
 import { CameraControlContextProvider } from './contexts/CameraContext';
-import { Effects } from './Effects/Effect';
+import { VFXEffects } from './VFXEffects/VFXEffect';
 import { GameBoard } from './components/GameBoard';
 import { Scene } from './components/Scene';
 import { TokensPanel } from './components/TokensPanel/TokensPanel';
@@ -37,6 +37,7 @@ export const Canvas: React.FC<CanvasProps> = ({ debug = true }) => {
 
   return (
     <ThreeCanvas
+<<<<<<< Updated upstream
     style={{ backgroundColor: 'black ' }}
     onCreated={({ gl }) => {
       gl.toneMapping = Uncharted2ToneMapping;
@@ -63,6 +64,34 @@ export const Canvas: React.FC<CanvasProps> = ({ debug = true }) => {
       {/*  <Effects down={down} />*/}
       {/*</CameraControlContextProvider>*/}
       <Content />
+=======
+      orthographic
+      style={{ backgroundColor: 'black ' }}
+      onCreated={({ gl }) => {
+        gl.toneMapping = Uncharted2ToneMapping;
+        gl.setClearColor(new Color('#020207'));
+        gl.shadowMap.enabled = true;
+        gl.shadowMap.type = PCFSoftShadowMap;
+        gl.toneMappingExposure = 0.5;
+      }}
+      onMouseMove={onMouseMove}
+      onMouseUp={() => set(false)}
+      onMouseDown={() => set(true)}>
+      <CameraControlContextProvider>
+        <Scene>
+          <Suspense fallback={null}>
+            <BackgroundBoard />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Token position={new Vector3(0, 0, 0.1)} />
+          </Suspense>
+          <GameBoard debug={debug} />
+          <TokensPanel />
+        </Scene>
+        <VFXEffects down={down} />
+        <ThreeMonitor debug={debug} />
+      </CameraControlContextProvider>
+>>>>>>> Stashed changes
     </ThreeCanvas>
   );
 };

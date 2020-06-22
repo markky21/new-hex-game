@@ -8,7 +8,11 @@ interface EffectsProps {
   scene: Scene;
 }
 
+<<<<<<< Updated upstream:src/modules/canvas/Effects/Effect.tsx
 export const Effects: React.FC<EffectsProps> = ({ scene, down }) => {
+=======
+export const VFXEffects: React.FC<EffectsProps> = ({ down }) => {
+>>>>>>> Stashed changes:src/modules/canvas/VFXEffects/VFXEffect.tsx
   const composer = useRef();
   const { gl, size, camera } = useThree();
   const aspect = useMemo(() => new Vector2(size.width, size.height), [size]);
