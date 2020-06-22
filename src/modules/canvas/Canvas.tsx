@@ -11,10 +11,14 @@ import { Effects } from './Effects/Effect';
 import { GameBoard } from './components/GameBoard';
 import { Scene } from './components/Scene';
 import { TokensPanel } from './components/TokensPanel/TokensPanel';
+import { ThreeMonitor } from './components/ThreeMonitor';
 
 Object3D.DefaultUp = new Vector3(0, 0, 1);
 
-export const Canvas: React.FC = () => {
+interface CanvasProps {
+  debug?: boolean;
+}
+export const Canvas: React.FC<CanvasProps> = ({ debug = true }) => {
   const [hovered, hover] = useState(false);
   const [down, set] = useState(false);
   const mouse = useRef([0, 0]);
@@ -52,10 +56,11 @@ export const Canvas: React.FC = () => {
           <Suspense fallback={null}>
             <BoardToken position={new Vector3(0, 0, 0.1)} />
           </Suspense>
-          <GameBoard debug={true} />
+          <GameBoard debug={debug} />
           <TokensPanel />
         </Scene>
         <Effects down={down} />
+        <ThreeMonitor debug={debug} />
       </CameraControlContextProvider>
     </ThreeCanvas>
   );
