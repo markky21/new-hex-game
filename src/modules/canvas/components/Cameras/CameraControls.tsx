@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFrame, useThree, useUpdate } from 'react-three-fiber';
 import { Box3, MOUSE, OrthographicCamera } from 'three';
 
 import { setViewToBoundaries } from './hooks/use-zooming-nav.hook';
 import { OrbitControls } from '../../libs/OrbitControls/OrbitControls';
+import { CameraControlContext } from '../../contexts/CameraContext';
+import { useSetControlToContext } from './hooks/use-set-control-to-context.hook';
 
 const maxPolarAngle = Math.PI / 4;
 const enableDamping = true;
@@ -33,6 +35,8 @@ export const CameraControls: React.FC<ICameraControls> = ({ boundaries }) => {
     },
     [boundaries, gl.domElement, camera]
   );
+  const [, setOrbitControl] = useContext(CameraControlContext);
+  useSetControlToContext(controlsRef.current, setOrbitControl);
 
   useFrame(() => controlsRef.current.update());
 

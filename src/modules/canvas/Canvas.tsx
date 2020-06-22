@@ -4,10 +4,13 @@ import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react
 import { Canvas as ThreeCanvas } from 'react-three-fiber';
 import { Color, Object3D, PCFSoftShadowMap, Uncharted2ToneMapping, Vector3 } from 'three';
 
-import { Scene } from './components/Scene';
-import { GameBoard } from './components/GameBoard';
 import { BackgroundBoard } from './components/BackgroundBoard/BackgroundBoard';
+import { BoardToken } from './components/BoardToken/BoardTocken';
+import { CameraControlContextProvider } from './contexts/CameraContext';
 import { Effects } from './Effects/Effect';
+import { GameBoard } from './components/GameBoard';
+import { Scene } from './components/Scene';
+import { TokensPanel } from './components/TokensPanel/TokensPanel';
 
 Object3D.DefaultUp = new Vector3(0, 0, 1);
 
@@ -41,15 +44,19 @@ export const Canvas: React.FC = () => {
       onMouseMove={onMouseMove}
       onMouseUp={() => set(false)}
       onMouseDown={() => set(true)}>
-      <fog attach="fog" args={[0xffffff, 390, 500]} />
-
-      <Scene>
-        <Suspense fallback={null}>
-          <BackgroundBoard />
-        </Suspense>
-        <GameBoard debug={true} />
-      </Scene>
-      <Effects down={down} />
+      <CameraControlContextProvider>
+        <Scene>
+          <Suspense fallback={null}>
+            <BackgroundBoard />
+          </Suspense>
+          <Suspense fallback={null}>
+            <BoardToken position={new Vector3(0, 0, 0.1)} />
+          </Suspense>
+          <GameBoard debug={true} />
+          <TokensPanel />
+        </Scene>
+        <Effects down={down} />
+      </CameraControlContextProvider>
     </ThreeCanvas>
   );
 };
