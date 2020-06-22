@@ -12,6 +12,7 @@ import { GameBoard } from './components/GameBoard';
 import { Scene } from './components/Scene';
 import { TokensPanel } from './components/TokensPanel/TokensPanel';
 import { ThreeMonitor } from './components/ThreeMonitor';
+import { Content } from './components/Content';
 
 Object3D.DefaultUp = new Vector3(0, 0, 1);
 
@@ -36,32 +37,32 @@ export const Canvas: React.FC<CanvasProps> = ({ debug = true }) => {
 
   return (
     <ThreeCanvas
-      orthographic
-      style={{ backgroundColor: 'black ' }}
-      onCreated={({ gl }) => {
-        gl.toneMapping = Uncharted2ToneMapping;
-        gl.setClearColor(new Color('#020207'));
-        gl.shadowMap.enabled = true;
-        gl.shadowMap.type = PCFSoftShadowMap;
-        gl.toneMappingExposure = 0.5;
-      }}
-      onMouseMove={onMouseMove}
-      onMouseUp={() => set(false)}
-      onMouseDown={() => set(true)}>
-      <CameraControlContextProvider>
-        <Scene>
-          <Suspense fallback={null}>
-            <BackgroundBoard />
-          </Suspense>
-          <Suspense fallback={null}>
-            <BoardToken position={new Vector3(0, 0, 0.1)} />
-          </Suspense>
-          <GameBoard debug={debug} />
-          <TokensPanel />
-        </Scene>
-        <Effects down={down} />
-        <ThreeMonitor debug={debug} />
-      </CameraControlContextProvider>
+    style={{ backgroundColor: 'black ' }}
+    onCreated={({ gl }) => {
+      gl.toneMapping = Uncharted2ToneMapping;
+      gl.setClearColor(new Color('#020207'));
+      gl.shadowMap.enabled = true;
+      gl.shadowMap.type = PCFSoftShadowMap;
+      gl.toneMappingExposure = 0.5;
+    }}
+    onMouseMove={onMouseMove}
+    onMouseUp={() => set(false)}
+    onMouseDown={() => set(true)}
+    >
+      {/*<CameraControlContextProvider>*/}
+      {/*  <Scene>*/}
+      {/*    <Suspense fallback={null}>*/}
+      {/*      <BackgroundBoard />*/}
+      {/*    </Suspense>*/}
+      {/*    <Suspense fallback={null}>*/}
+      {/*      <BoardToken position={new Vector3(0, 0, 0.1)} />*/}
+      {/*    </Suspense>*/}
+      {/*    <GameBoard debug={debug} />*/}
+      {/*    <TokensPanel />*/}
+      {/*  </Scene>*/}
+      {/*  <Effects down={down} />*/}
+      {/*</CameraControlContextProvider>*/}
+      <Content />
     </ThreeCanvas>
   );
 };
