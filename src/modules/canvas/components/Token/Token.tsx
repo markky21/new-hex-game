@@ -24,18 +24,19 @@ export enum AttackTypesEnum {
 
 export enum EnhancementTypesEnum {
   SPEED = 'SPEED',
-  ENDURANCE = 'ENDURANCE',
+  HP = 'HP',
   MELEE = 'MELEE',
   SHOT = 'SHOT'
 }
 
 export type AttackTypes = AttackTypesEnum.MELEE | AttackTypesEnum.GAUSS | AttackTypesEnum.SHOT;
-export type EnhancementTypes = EnhancementTypesEnum.ENDURANCE | EnhancementTypesEnum.SHOT | EnhancementTypesEnum.MELEE | EnhancementTypesEnum.SPEED;
+export type EnhancementTypes = EnhancementTypesEnum.HP | EnhancementTypesEnum.SHOT | EnhancementTypesEnum.MELEE | EnhancementTypesEnum.SPEED;
 
 export interface Token {
   name?: string;
   type: TokenType;
   enableRotation?: boolean;
+  enableMovement?: boolean;
   position?: Vector3;
 }
 
@@ -46,14 +47,14 @@ export interface Attack {
 }
 
 export interface Enhancement {
-  dir: number
+  dirs: number[]
   strength: number;
   type: EnhancementTypes;
 }
 
 export class ActionToken implements Token {
   type: TokenTypesEnum.ACTION;
-  effect: CommonActions;
+  effect: CommonActions | string;
 }
 
 export interface BoardToken extends Token {
@@ -66,12 +67,13 @@ export interface BoardToken extends Token {
 
 export interface EnhancementToken extends BoardToken {
   type: TokenTypesEnum.ENHANCEMENT;
-  enhancement: Enhancement;
+  enhancements: Enhancement[];
 }
 
 export interface SoldierToken extends BoardToken {
   type: TokenTypesEnum.SOLDIER;
   attacks: Attack[];
+  speed: number;
 }
 
 export const Token: React.FC<Token> = React.memo(({ position }) => {
