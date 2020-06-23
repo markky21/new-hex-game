@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Group, OrthographicCamera, Scene } from 'three';
+import {Group, OrthographicCamera, Scene, Vector3} from 'three';
 import { createPortal, useFrame, useThree, useUpdate } from 'react-three-fiber';
 
 export function Hud() {
@@ -12,7 +12,7 @@ export function Hud() {
   const [hovered, set] = useState(false);
 
   useEffect(() => {
-    camera.current.zoom = 30;
+    camera.current.zoom = 200;
     camera.current.updateProjectionMatrix();
   }, [camera.current]);
 
@@ -26,12 +26,12 @@ export function Hud() {
     <group ref={groupRef}>
       <ambientLight />
       <mesh>
-        <boxBufferGeometry attach="geometry" args={[2, 2, 2]} />
+        <boxBufferGeometry attach="geometry" args={[1, 1, .5]} />
         <meshStandardMaterial attach="material" color="lightgreen" />
       </mesh>
       <mesh onPointerOver={() => set(true)} onPointerOut={() => set(false)}>
         <sphereBufferGeometry attach="geometry" args={[0.5, 64, 64]} />
-        <meshBasicMaterial attach="material" color={hovered ? 'hotpink' : 'black'} />
+        <meshPhongMaterial attach="material" color={hovered ? 'hotpink' : 'black'} />
       </mesh>
     </group>,
     scene
