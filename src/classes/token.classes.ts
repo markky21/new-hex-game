@@ -4,30 +4,36 @@ import {
   BoardToken,
   EnhancementType,
   SimpleAttack,
-  SimpleEnhancement,
+  SimpleEnhancement, SoldierShield,
   Token,
   TokenType,
 } from '../models/hex.model';
+import {Dictionary} from "../models/main.model";
 
 /**
  * Classes
  */
 export class AttacksClass {
-  constructor(public actions: SimpleAttackClass[]) {}
+  constructor(public attacks: Dictionary<SimpleAttackClass>) {}
 
-  // TODO create cta method witch gonna execute the attacks listed in array
+  // TODO create cta method which gonna execute the attacks listed in array
+}
+
+export class EnhancementClass {
+  constructor(public enhancements: Dictionary<SimpleEnhancementClass>) {}
+}
+
+export class SoldierShieldClass {
+  constructor(public shields: Dictionary<ShieldClass>) {}
 }
 
 export class BoardTokenClass implements BoardToken {
   position: string;
-  dir: number;
+  direction: number;
   enableRotation: boolean;
-  enableMovement: boolean;
   hp: number;
-  shield: number[];
   poisoned: boolean;
-  coughtByNet: boolean;
-  speed: number;
+  caughtByNet: boolean;
 
   constructor(initial: Partial<BoardToken>) {
     Object.entries(initial).map(([key, value]) => (this[key] = value));
@@ -35,6 +41,10 @@ export class BoardTokenClass implements BoardToken {
 
   // TODO: add methods for traversing board
   // TODO: add method for checking enhancements
+}
+
+export class ShieldClass implements SoldierShield {
+  constructor(public strength: number) {}
 }
 
 export class SimpleAttackClass implements SimpleAttack {
@@ -52,22 +62,6 @@ export class SimpleEnhancementClass implements SimpleEnhancement {
 /**
  * Abstract classes
  */
-export interface TokenSoldier extends Token {
-  type: TokenType;
-  board: BoardTokenClass;
-  attacks: AttacksClass;
-}
-
-export interface TokenAction {
-  type: TokenType;
-  effect: ActionType;
-}
-
-export interface TokenEnhancement {
-  type: TokenType;
-  board: BoardTokenClass;
-  enhancements: EnhancementsClass;
-}
 
 export abstract class TokenClass implements Token {
   abstract name: string;
@@ -78,6 +72,7 @@ export abstract class TokenSoldierClass extends TokenClass implements TokenSoldi
   type = TokenType.SOLDIER;
   abstract board: BoardTokenClass;
   abstract attacks: AttacksClass;
+  abstract shields: SoldierShieldClass;
 }
 
 export abstract class TokenActionClass extends TokenClass implements TokenAction {
@@ -92,7 +87,7 @@ export abstract class TokenEnhancementClass extends TokenClass implements TokenE
 }
 
 export abstract class EnhancementsClass {
-  abstract actions: SimpleEnhancementClass[];
+  abstract actions: SimpleEnhancementClass;
 
   // TODO create cta method witch gonna execute the enhancements listed in array
 }
@@ -105,4 +100,24 @@ export interface ArmyTokenSet {
   actionsTokens: { token: typeof TokenActionClass; amount: number }[];
   soldiersTokens: { token: typeof TokenSoldierClass; amount: number }[];
   enhancementsTokens: { token: typeof TokenEnhancementClass; amount: number }[];
+}
+
+export interface TokenSoldier extends Token {
+  type: TokenType;
+  board: BoardTokenClass;
+  attack: AttacksClass;
+  speed: number;
+  enableMovement: boolean;
+  shields: ShieldClass;
+}
+
+export interface TokenAction {
+  type: TokenType;
+  effect: ActionType;
+}
+
+export interface TokenEnhancement {
+  type: TokenType;
+  board: BoardTokenClass;
+  enhancements: EnhancementsClass;
 }

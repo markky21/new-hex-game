@@ -5,9 +5,17 @@ export enum Army {
   HEGEMONY = 'hegemony',
 }
 
+export interface Shield {
+  strength: number;
+}
+
 export interface SimpleAttack {
   strength: number;
   type: AttackType;
+}
+
+export interface SoldierShield {
+  shields: Shield;
 }
 
 export interface SimpleEnhancement {
@@ -28,7 +36,7 @@ export interface BoardToken {
   hp: number;
   shield: number[];
   poisoned: boolean;
-  coughtByNet: boolean;
+  caughtByNet: boolean;
   speed: number;
 }
 
@@ -58,12 +66,4 @@ export enum ActionType {
   PUSH = 'PUSH',
   SNIPER = 'SNIPER',
   GRENADE = 'GRENADE',
-}
-
-export enum TokenBorgo {
-  SIEPACZ = 'siepacz',
-}
-
-export enum TokenMoloch {
-  CYBORG = 'cyborg',
 }

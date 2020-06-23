@@ -2,21 +2,107 @@ import {
   ArmyTokenSet,
   AttacksClass,
   BoardTokenClass,
+  EnhancementClass,
+  EnhancementsClass,
   SimpleAttackClass,
+  SimpleEnhancementClass,
+  SoldierShotShields,
   TokenSoldierClass,
 } from '../../classes/token.classes';
-import { AttackType } from '../hex.model';
-import { TokenActionBattle, TokenActionGrenade, TokenActionMove } from './token-actions.model';
+import {AttackType, EnhancementType} from '../hex.model';
+import {TokenActionBattle, TokenActionGrenade, TokenActionMove} from './token-actions.model';
 
 
 class BorgoSoldierMutty extends TokenSoldierClass {
-  attacks = new AttacksClass([
-    new SimpleAttackClass(AttackType.MELEE, 1),
-    new SimpleAttackClass(AttackType.MELEE, 1),
-    new SimpleAttackClass(AttackType.MELEE, 1),
-  ]);
+  attacks = new AttacksClass({
+    0: new SimpleAttackClass(AttackType.MELEE, 1),
+    1: new SimpleAttackClass(AttackType.MELEE, 1),
+    2: new SimpleAttackClass(AttackType.MELEE, 1),
+  });
   board = new BoardTokenClass({ hp: 1, speed: 2 });
   name: 'Mutty';
+}
+
+class BorgoSoldierCutler extends TokenSoldierClass {
+  attacks = new AttacksClass({
+    0: new SimpleAttackClass(AttackType.MELEE, 1),
+    5: new SimpleAttackClass(AttackType.MELEE, 1),
+  });
+  board = new BoardTokenClass({ hp: 1, speed: 3 });
+  name: 'Cutler';
+}
+
+class BorgoSoldierWebmaster extends TokenSoldierClass {
+  attacks = new AttacksClass({
+    3: new SimpleAttackClass(AttackType.MELEE, 3)
+  });
+  board = new BoardTokenClass({ hp: 1, speed: 1 });
+  name: 'Webmaster';
+}
+
+class BorgoSoldierSuperMutant extends TokenSoldierClass {
+  attacks = new AttacksClass({
+    0: new SimpleAttackClass(AttackType.MELEE, 1),
+    1: new SimpleAttackClass(AttackType.MELEE, 2),
+    2: new SimpleAttackClass(AttackType.MELEE, 1),
+  });
+  shields = new SoldierShotShields([0, 1, 2]);
+  board = new BoardTokenClass({ hp: 2, speed: 2 });
+  name: 'Super-mutant';
+}
+
+class BorgoSoldierMusclehead extends TokenSoldierClass {
+  attacks = new AttacksClass({
+    1: new SimpleAttackClass(AttackType.MELEE, 2),
+  });
+  board = new BoardTokenClass({ hp: 1, speed: 2 });
+  name: 'Musclehead';
+}
+
+class BorgoSoldierKiller extends TokenSoldierClass {
+  attacks = new AttacksClass({
+    5: new SimpleAttackClass(AttackType.SHOT, 1),
+  });
+  board = new BoardTokenClass({ hp: 1, speed: 3 });
+  name: 'Killer';
+  enableMovement: true;
+}
+
+class MedicEnhancement extends EnhancementsClass {
+  enhancements = new EnhancementClass({
+    0: new SimpleEnhancementClass(1, EnhancementType.HP),
+    1: new SimpleEnhancementClass(1, EnhancementType.HP),
+    2: new SimpleEnhancementClass(1, EnhancementType.HP)
+  });
+  name = 'Medic';
+}
+
+class OfficerEnhancement extends EnhancementsClass {
+  enhancements = new EnhancementClass({
+    0: new SimpleEnhancementClass(1, EnhancementType.MELEE),
+    1: new SimpleEnhancementClass(1, EnhancementType.MELEE),
+    2: new SimpleEnhancementClass(1, EnhancementType.MELEE)
+  });
+  name = 'Officer';
+}
+
+class SuperOfficerEnhancement extends EnhancementsClass {
+  enhancements = new EnhancementClass({
+    0: new SimpleEnhancementClass(1, EnhancementType.MELEE),
+    1: new SimpleEnhancementClass(1, EnhancementType.MELEE),
+    2: new SimpleEnhancementClass(1, EnhancementType.MELEE)
+  });
+  name = 'Super-officer';
+  board = new BoardTokenClass({ hp: 2, speed: 0});
+}
+
+class ScoutEnhancement extends EnhancementsClass {
+  enhancements = new EnhancementClass({
+    0: new SimpleEnhancementClass(1, EnhancementType.SPEED),
+    1: new SimpleEnhancementClass(1, EnhancementType.SPEED),
+    2: new SimpleEnhancementClass(1, EnhancementType.SPEED)
+  });
+  name = 'Scout';
 }
 
 export const TokenBorgoModel: ArmyTokenSet = {
@@ -39,137 +125,43 @@ export const TokenBorgoModel: ArmyTokenSet = {
       token: BorgoSoldierMutty,
       amount: 6,
     },
-    /* {
-      token: {
-        name: 'Cutler',
-        attacks: [
-          {
-            dir: 0,
-            strength: 1,
-            type: AttackType.MELEE,
-          },
-        ],
-        speed: 3,
-        hp: 1,
-      },
+    {
+      token: BorgoSoldierCutler,
       amount: 4,
     },
     {
-      token: {
-        name: 'Webmaster',
-        speed: 1,
-        hp: 1,
-        attacks: [
-          {
-            dir: 3,
-            strength: 3,
-            type: AttackType.MELEE,
-          },
-        ],
-      },
+      token: BorgoSoldierWebmaster,
       amount: 2,
     },
     {
-      token: {
-        name: 'Super-mutant',
-        hp: 2,
-        speed: 2,
-        shield: [0, 1, 2],
-        attacks: [
-          {
-            dir: 0,
-            strength: 1,
-            type: AttackType.MELEE,
-          },
-          {
-            dir: 1,
-            strength: 2,
-            type: AttackType.MELEE,
-          },
-          {
-            dir: 2,
-            strength: 1,
-            type: AttackType.MELEE,
-          },
-        ],
-      },
+      token: BorgoSoldierSuperMutant,
       amount: 1,
     },
     {
-      token: {
-        name: 'Musclehead',
-        speed: 2,
-        hp: 1,
-        attacks: [{ dir: 1, strength: 2, type: AttackType.MELEE }],
-      },
+      token: BorgoSoldierMusclehead,
       amount: 2,
     },
     {
-      token: {
-        name: 'Killer',
-        speed: 3,
-        enableMovement: true,
-        attacks: [{ dir: 0, strength: 1, type: AttackType.SHOT }],
-      },
+      token: BorgoSoldierKiller,
       amount: 2,
-    },*/
+    },
   ],
     enhancementsTokens: [
-   /* {
-      token: {
-        name: 'Medic',
-        hp: 1,
-        enhancements: [
-          {
-            dirs: [0, 1, 2],
-            strength: 1,
-            type: EnhancementType.HP,
-          },
-        ],
-      },
+   {
+      token: MedicEnhancement,
       amount: 1,
     },
     {
-      token: {
-        name: 'Officer',
-        hp: 1,
-        enhancements: [
-          {
-            dirs: [0, 1, 2],
-            strength: 1,
-            type: EnhancementType.MELEE,
-          },
-        ],
-      },
+      token: OfficerEnhancement,
       amount: 2,
     },
     {
-      token: {
-        name: 'Super-officer',
-        enhancements: [
-          {
-            dirs: [0, 1, 2],
-            strength: 1,
-            type: EnhancementType.HP,
-          },
-        ],
-        hp: 2,
-      },
+      token: SuperOfficerEnhancement,
       amount: 1,
     },
     {
-      token: {
-        name: 'Scout',
-        hp: 1,
-        enhancements: [
-          {
-            dirs: [0, 1, 2],
-            strength: 1,
-            type: EnhancementType.SPEED,
-          },
-        ],
-      },
+      token: ScoutEnhancement,
       amount: 2,
-    },*/
+    },
   ],
 };
