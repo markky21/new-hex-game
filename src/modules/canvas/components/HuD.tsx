@@ -24,6 +24,7 @@ export function Hud() {
 
   return createPortal(
     <group ref={groupRef}>
+      <ambientLight />
       <mesh>
         <boxBufferGeometry attach="geometry" args={[2, 2, 2]} />
         <meshStandardMaterial attach="material" color="lightgreen" />

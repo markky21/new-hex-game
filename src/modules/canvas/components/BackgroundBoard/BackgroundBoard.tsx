@@ -3,15 +3,17 @@ import { useLoader, useUpdate } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Group, Mesh } from 'three';
 
-const initialScale = 0.2;
-const initialRotation = { x: Math.PI / 2, y: Math.PI / 2 + Math.PI / 12, z: Math.PI / -12 };
-const initialPositionZ = -4;
+const initialScale = 0.15;
+const initialRotation = { x: Math.PI/2, y: Math.PI / 2 , z: 0 } //{ x: Math.PI / 2, y: Math.PI / 2 + Math.PI / 12, z: Math.PI / -12 };
+const initialPositionX = 1;
+const initialPositionZ = -0.001;
 
 function useAfterInit(): React.MutableRefObject<any> {
   const wasInit = useRef<boolean>(false);
   return useUpdate((ref: Group) => {
     ref.scale.setScalar(initialScale);
     ref.rotation.set(initialRotation.x, initialRotation.y, initialRotation.z);
+    ref.position.setX(initialPositionX);
     ref.position.setZ(initialPositionZ);
 
     if (!wasInit.current) {
