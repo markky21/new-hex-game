@@ -37,7 +37,7 @@ export interface BoardToken {
   shield: number[];
   poisoned: boolean;
   caughtByNet: boolean;
-  speed: number;
+  attackRound: number[];
 }
 
 export enum TokenType {
@@ -50,6 +50,7 @@ export enum AttackType {
   MELEE = 'MELEEATTACK',
   SHOT = 'SHOTATTACK',
   GAUSS = 'GAUSSATTACK',
+  NET = 'NET'
 }
 
 export enum EnhancementType {
@@ -57,6 +58,7 @@ export enum EnhancementType {
   HP = 'HP',
   MELEE = 'MELEE',
   SHOT = 'SHOT',
+  REPEATATTACK = 'REPEATATTACK'
 }
 
 export enum ActionType {
@@ -66,4 +68,5 @@ export enum ActionType {
   PUSH = 'PUSH',
   SNIPER = 'SNIPER',
   GRENADE = 'GRENADE',
+  BOMB = 'BOMB'
 }

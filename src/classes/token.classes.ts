@@ -14,17 +14,17 @@ import {Dictionary} from "../models/main.model";
  * Classes
  */
 export class AttacksClass {
-  constructor(public attacks: Dictionary<SimpleAttackClass>) {}
+  constructor(public attacks: Dictionary<SimpleAttackClass | SimpleAttackClass[]>) {}
 
   // TODO create cta method which gonna execute the attacks listed in array
 }
 
 export class EnhancementClass {
-  constructor(public enhancements: Dictionary<SimpleEnhancementClass>) {}
+  constructor(public enhancements: Dictionary<SimpleEnhancementClass | SimpleEnhancementClass[]>) {}
 }
 
 export class SoldierShieldClass {
-  constructor(public shields: Dictionary<ShieldClass>) {}
+  constructor(public shields: Dictionary<SimpleShieldClass>) {}
 }
 
 export class BoardTokenClass implements BoardToken {
@@ -43,7 +43,7 @@ export class BoardTokenClass implements BoardToken {
   // TODO: add method for checking enhancements
 }
 
-export class ShieldClass implements SoldierShield {
+export class SimpleShieldClass implements SoldierShield {
   constructor(public strength: number) {}
 }
 
@@ -108,7 +108,7 @@ export interface TokenSoldier extends Token {
   attack: AttacksClass;
   speed: number;
   enableMovement: boolean;
-  shields: ShieldClass;
+  shields: SimpleShieldClass;
 }
 
 export interface TokenAction {

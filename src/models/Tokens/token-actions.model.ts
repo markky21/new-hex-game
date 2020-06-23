@@ -25,3 +25,7 @@ export class TokenActionGrenade extends TokenActionClass {
   name: 'Action Grenade';
   effect = ActionType.GRENADE;
 }
+export class TokenActionBomb extends TokenActionClass {
+  name: 'Action Bomb';
+  effect = ActionType.BOMB;
+}
