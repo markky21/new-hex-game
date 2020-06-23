@@ -1,18 +1,13 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from 'react-three-fiber';
 import { Scene, Vector2 } from 'three';
-import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
 
 interface EffectsProps {
   down?: boolean;
   scene: Scene;
 }
 
-<<<<<<< Updated upstream:src/modules/canvas/Effects/Effect.tsx
-export const Effects: React.FC<EffectsProps> = ({ scene, down }) => {
-=======
-export const VFXEffects: React.FC<EffectsProps> = ({ down }) => {
->>>>>>> Stashed changes:src/modules/canvas/VFXEffects/VFXEffect.tsx
+export const VFXEffects: React.FC<EffectsProps> = ({ down, scene }) => {
   const composer = useRef();
   const { gl, size, camera } = useThree();
   const aspect = useMemo(() => new Vector2(size.width, size.height), [size]);

@@ -1,11 +1,10 @@
-import { Tokens } from '../../../models/hex.model';
 import { Dictionary } from '../../../models/main.model';
 
 export interface FieldEffect {}
 
 export interface BoardFieldInterface {
   coordinates: [number, number, number];
-  occupied?: Tokens;
+  // occupied?: Token; // TODO update
   effects?: FieldEffect;
 }
 
