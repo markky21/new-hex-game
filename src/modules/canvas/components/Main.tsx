@@ -21,7 +21,7 @@ export function Main(down?: boolean, debug: boolean = true) {
         <BackgroundBoard />
       </Suspense>
       <Suspense fallback={null}>
-        <Token position={new Vector3(0, 0, 0.1)} />
+        <Token position={new Vector3(0, 0, 0.01)} />
       </Suspense>
       <GameBoard debug={debug} />
     </>,

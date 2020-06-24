@@ -18,7 +18,7 @@ export const Token: React.FC<TokenProps> = React.memo(({ position }) => {
     <group rotation={rotationHex} position={positionHex}>
       <mesh>
         <circleBufferGeometry attach="geometry" args={[hexRadius, 6]} />
-        <meshPhongMaterial attach="material" normalMap={normalMap as any} color={'green'} />
+        <meshPhongMaterial attach="material" normalMap={normalMap as any} color={'white'} />
       </mesh>
     </group>
   );
