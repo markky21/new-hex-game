@@ -4,11 +4,12 @@ import {
   BoardToken,
   EnhancementType,
   SimpleAttack,
-  SimpleEnhancement, SoldierShield,
+  SimpleEnhancement,
+  SimpleShield,
   Token,
   TokenType,
 } from '../models/hex.model';
-import {Dictionary} from "../models/main.model";
+import { Dictionary } from '../models/main.model';
 
 /**
  * Classes
@@ -19,12 +20,14 @@ export class AttacksClass {
   // TODO create cta method which gonna execute the attacks listed in array
 }
 
-export class EnhancementClass {
-  constructor(public enhancements: Dictionary<SimpleEnhancementClass | SimpleEnhancementClass[]>) {}
+export class ShieldsClass {
+  constructor(public shields: Dictionary<SimpleShieldClass>) {}
 }
 
-export class SoldierShieldClass {
-  constructor(public shields: Dictionary<SimpleShieldClass>) {}
+export class EnhancementsClass {
+  constructor(public actions: Dictionary<SimpleEnhancementClass | SimpleEnhancementClass[]>) {}
+
+  // TODO create cta method witch gonna execute the enhancements listed in array
 }
 
 export class BoardTokenClass implements BoardToken {
@@ -34,8 +37,9 @@ export class BoardTokenClass implements BoardToken {
   hp: number;
   poisoned: boolean;
   caughtByNet: boolean;
+  attackRound: number[];
 
-  constructor(initial: Partial<BoardToken>) {
+  constructor(initial?: Partial<BoardToken>) {
     Object.entries(initial).map(([key, value]) => (this[key] = value));
   }
 
@@ -43,7 +47,7 @@ export class BoardTokenClass implements BoardToken {
   // TODO: add method for checking enhancements
 }
 
-export class SimpleShieldClass implements SoldierShield {
+export class SimpleShieldClass implements SimpleShield {
   constructor(public strength: number) {}
 }
 
@@ -72,7 +76,8 @@ export abstract class TokenSoldierClass extends TokenClass implements TokenSoldi
   type = TokenType.SOLDIER;
   abstract board: BoardTokenClass;
   abstract attacks: AttacksClass;
-  abstract shields: SoldierShieldClass;
+  abstract shields: ShieldsClass;
+  abstract enableMovement: boolean;
 }
 
 export abstract class TokenActionClass extends TokenClass implements TokenAction {
@@ -86,12 +91,6 @@ export abstract class TokenEnhancementClass extends TokenClass implements TokenE
   abstract enhancements: EnhancementsClass;
 }
 
-export abstract class EnhancementsClass {
-  abstract actions: SimpleEnhancementClass;
-
-  // TODO create cta method witch gonna execute the enhancements listed in array
-}
-
 /**
  * Interfaces
  */
@@ -103,12 +102,11 @@ export interface ArmyTokenSet {
 }
 
 export interface TokenSoldier extends Token {
-  type: TokenType;
+  attacks: AttacksClass;
   board: BoardTokenClass;
-  attack: AttacksClass;
-  speed: number;
   enableMovement: boolean;
-  shields: SimpleShieldClass;
+  shields: ShieldsClass;
+  type: TokenType;
 }
 
 export interface TokenAction {

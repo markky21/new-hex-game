@@ -14,8 +14,8 @@ export interface SimpleAttack {
   type: AttackType;
 }
 
-export interface SoldierShield {
-  shields: Shield;
+export interface SimpleShield {
+  strength: number;
 }
 
 export interface SimpleEnhancement {
@@ -29,12 +29,10 @@ export interface Token {
 }
 
 export interface BoardToken {
-  position: string; // e.g. c3
-  dir: number; // 0-5
+  position: string;
+  direction: number;
   enableRotation: boolean;
-  enableMovement: boolean;
   hp: number;
-  shield: number[];
   poisoned: boolean;
   caughtByNet: boolean;
   attackRound: number[];
