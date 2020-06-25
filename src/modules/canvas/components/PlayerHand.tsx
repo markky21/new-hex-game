@@ -1,10 +1,14 @@
 import React, {Suspense } from 'react';
 import { Vector3 } from 'three';
-import { createPortal, useFrame, useThree, useUpdate, ReactThreeFiber } from 'react-three-fiber';
+import { useFrame, useThree, useUpdate, ReactThreeFiber } from 'react-three-fiber';
 import { useSpring, a } from 'react-spring/three';
 import {Token} from "./Token/Token";
 
-export const Hud2 = ({ position }: {position: [number, number, number]} = { position: [0,0,0] }) => {
+interface HudParams {
+    position: [number,number, number];
+}
+
+export const PlayerHand:React.FC<HudParams> = ({ position }: HudParams = { position: [0,0,0] }) => {
   const { camera, scene } = useThree();
     const [props, set] = useSpring<{
         position: ReactThreeFiber.Vector3;
@@ -18,7 +22,7 @@ export const Hud2 = ({ position }: {position: [number, number, number]} = { posi
   useFrame(() => {
       const { x, y, z } = camera.position;
       const { x: rotX, y: rotY, z: rotZ } = camera.rotation;
-      set({ position: [x, y, z], rotation: [rotX, rotY, rotZ] });
+      set({ position: [0, 0, 0], rotation: [0, 0, 0] });
   });
 
   const displayTokens = () => {
@@ -26,7 +30,7 @@ export const Hud2 = ({ position }: {position: [number, number, number]} = { posi
           for (const el of [0,1,2]) {
               tokens.push(
                   <group key={'token' + el} position={[(el*2) -2, 1, 5]}>
-          <pointLight args={['white', 2, 3]} />
+          <pointLight args={['white', 1, 3]} />
               <Suspense fallback={null}>
                   <Token position={ new Vector3(0,1,0)} />
               </Suspense>
@@ -37,7 +41,7 @@ export const Hud2 = ({ position }: {position: [number, number, number]} = { posi
           return tokens;
   }
 
-  return createPortal(
+  return (
       <a.group position={props.position}>
           <a.group rotation={props.rotation}>
               <group position={position}>
@@ -50,5 +54,5 @@ export const Hud2 = ({ position }: {position: [number, number, number]} = { posi
               </group>
         </a.group>
       </a.group>
-  , scene);
+ );
 };

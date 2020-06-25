@@ -3,7 +3,7 @@ import { useFrame, useThree } from 'react-three-fiber';
 import { PerspectiveCamera, Vector3 } from 'three';
 import { Hud } from './HuD';
 import { Main } from './Main';
-import {Hud2} from "./HuD2";
+import {PlayerHand} from "./PlayerHand";
 
 const Controls = () => {
   const { camera, gl } = useThree();
@@ -40,9 +40,7 @@ export const Content: React.FC = () => {
       // @ts-ignore
       <Main />
       // @ts-ignore
-      <Hud2 position={[0, -4, -15]} />
-      // @ts-ignore
-      {/*<Hud />*/}
+      <Hud />
     </group>
   );
 };
