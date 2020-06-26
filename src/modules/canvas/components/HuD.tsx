@@ -1,7 +1,6 @@
 import React, {Suspense, useEffect, useRef, useState} from 'react';
-import {Group, OrthographicCamera, Scene, Vector3, PerspectiveCamera} from 'three';
+import {Group, Scene, Vector3, PerspectiveCamera} from 'three';
 import { createPortal, useFrame, useThree, useUpdate } from 'react-three-fiber';
-import {Token} from "./Token/Token";
 import { PlayerHand } from './PlayerHand';
 
 export function Hud() {
@@ -20,6 +19,8 @@ export function Hud() {
   }, [camera.current]);
 
   useFrame(({ gl }): void => {
+    camera.current.aspect = size.width/size.height;
+    camera.current.updateProjectionMatrix();
     gl.autoClear = false;
     gl.clearDepth();
     gl.render(scene, camera.current);
