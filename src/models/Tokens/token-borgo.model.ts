@@ -6,12 +6,13 @@ import {
   ShieldsClass,
   SimpleAttackClass,
   SimpleEnhancementClass,
-  SimpleShieldClass,
+  SimpleShieldClass, TokenClass,
   TokenEnhancementClass,
   TokenSoldierClass,
 } from '../../classes/token.classes';
 import { AttackType, EnhancementType } from '../hex.model';
 import { TokenActionBattle, TokenActionGrenade, TokenActionMove } from './token-actions.model';
+import {shuffleArray} from "../../utils/object.utils";
 
 class BorgoSoldierMutty extends TokenSoldierClass {
   name: 'Mutty';
@@ -88,8 +89,8 @@ class MedicEnhancement extends TokenEnhancementClass {
     1: new SimpleEnhancementClass(1, EnhancementType.HP),
     2: new SimpleEnhancementClass(1, EnhancementType.HP),
   });
-  name = 'Medic';
-  board = new BoardTokenClass();
+  name: 'Medic';
+  board = new BoardTokenClass({ hp: 1, attackRound:[0]});
 }
 
 class OfficerEnhancement extends TokenEnhancementClass {
@@ -98,8 +99,8 @@ class OfficerEnhancement extends TokenEnhancementClass {
     1: new SimpleEnhancementClass(1, EnhancementType.MELEE),
     2: new SimpleEnhancementClass(1, EnhancementType.MELEE),
   });
-  name = 'Officer';
-  board = new BoardTokenClass();
+  name: 'Officer';
+  board = new BoardTokenClass({ hp: 1, attackRound: [0] });
 }
 
 class SuperOfficerEnhancement extends TokenEnhancementClass {
@@ -108,8 +109,8 @@ class SuperOfficerEnhancement extends TokenEnhancementClass {
     1: new SimpleEnhancementClass(1, EnhancementType.MELEE),
     2: new SimpleEnhancementClass(1, EnhancementType.MELEE),
   });
-  name = 'Super-officer';
-  board = new BoardTokenClass({ hp: 2, attackRound: [0] });
+  name: 'Super-officer';
+  board = new BoardTokenClass({ hp: 1, attackRound: [0] });
 }
 
 class ScoutEnhancement extends TokenEnhancementClass {
@@ -118,8 +119,8 @@ class ScoutEnhancement extends TokenEnhancementClass {
     1: new SimpleEnhancementClass(1, EnhancementType.SPEED),
     2: new SimpleEnhancementClass(1, EnhancementType.SPEED),
   });
-  name = 'Scout';
-  board = new BoardTokenClass();
+  name: 'Scout';
+  board = new BoardTokenClass({ hp: 1, attackRound: [0] });
 }
 
 export const TokenBorgoModel: ArmyTokenSet = {
