@@ -1,15 +1,21 @@
-import React, {Suspense } from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 import { Vector3 } from 'three';
 import { useFrame, useThree, useUpdate, ReactThreeFiber } from 'react-three-fiber';
 import { useSpring, a } from 'react-spring/three';
 import {Token} from "./Token/Token";
+import {TokenClass} from "../../../classes/token.classes";
+import { playerService } from "../../../App";
 
 interface HudParams {
     position: [number,number, number];
 }
 
 export const PlayerHand:React.FC<HudParams> = ({ position }: HudParams = { position: [0,0,0] }) => {
-  const { camera, scene } = useThree();
+    let hand: TokenClass[];
+    let tokenSet: TokenClass[];
+
+    const [ playerServ, setService ] = useState(playerService);
+    const { camera, scene } = useThree();
     const [props, set] = useSpring<{
         position: ReactThreeFiber.Vector3;
         rotation: ReactThreeFiber.Vector3;
@@ -18,6 +24,26 @@ export const PlayerHand:React.FC<HudParams> = ({ position }: HudParams = { posit
         rotation: [0, 0, 0],
         config: { mass: 10, friction: 500, tension: 500 }
     }));
+
+    useEffect(() => {
+        return () => {
+            console.log('set');
+            setService(playerService);
+            playerServ.getPlayerTokenSet().subscribe((tokens) => {
+                console.log('tokeny playera');
+                tokenSet = tokens;
+                playerService.drawTokens({currentHandAmount: 0}, tokenSet);
+            });
+
+            playerServ.getHandTokens().subscribe((tokens) => {
+                hand = tokens;
+                console.log(hand);
+            });
+        }
+
+        console.log('jeb');
+
+    });
 
   useFrame(() => {
       const { x, y, z } = camera.position;
