@@ -2,7 +2,7 @@ import { ArmyTokenSet, TokenClass} from "../classes/token.classes";
 import { shuffleArray } from "../utils/object.utils";
 import { Observable, Subject} from "rxjs";
 
-export const PlayerService = (props) => {
+export class PlayerService {
     private currentHandTokens: Subject<TokenClass[]> = new Subject();
     private playerTokenSet: Subject<TokenClass[]> = new Subject();
     private handTokenSet: TokenClass[] = [];
