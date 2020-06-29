@@ -1,12 +1,12 @@
 import React from 'react';
-import { smallBoard } from '../models/hex.model';
+import { smallBoard } from '../../models/hex.model';
 import { GameBoardField } from './GameBoardField';
 
 interface GameBoardProps {
   debug?: boolean;
 }
 
-export const GameBoard: React.FC<GameBoardProps> = ({ debug }) => {
+export const GameBoard: React.FC<GameBoardProps> = React.memo(({ debug }) => {
   return (
     <group>
       {Object.entries(smallBoard).map(([id, { coordinates }]) => (
@@ -14,4 +14,4 @@ export const GameBoard: React.FC<GameBoardProps> = ({ debug }) => {
       ))}
     </group>
   );
-};
+});

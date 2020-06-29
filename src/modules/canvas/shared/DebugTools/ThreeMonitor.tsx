@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useFrame, useThree } from 'react-three-fiber';
 import * as Stats from 'stats.js';
 
-import { RendererStats } from '../libs/ThreexRenderStats/threex.renderstats';
+import { RendererStats } from '../../libs/ThreexRenderStats/threex.renderstats';
 
 const initRendererStats = () => {
   const rendererStats = new RendererStats();

@@ -2,7 +2,7 @@ import React, {Suspense } from 'react';
 import { Vector3 } from 'three';
 import { useFrame, useThree, useUpdate, ReactThreeFiber } from 'react-three-fiber';
 import { useSpring, a } from 'react-spring/three';
-import {Token} from "./Token/Token";
+import {Token} from "../../shared/Token/Token";
 
 interface HudParams {
     position: [number,number, number];
@@ -19,11 +19,9 @@ export const PlayerHand:React.FC<HudParams> = ({ position }: HudParams = { posit
         config: { mass: 10, friction: 500, tension: 500 }
     }));
 
-  useFrame(() => {
-      const { x, y, z } = camera.position;
-      const { x: rotX, y: rotY, z: rotZ } = camera.rotation;
-      set({ position: [0, 0, 0], rotation: [0, 0, 0] });
-  });
+  // useFrame(() => {
+  //     set({ position: [0, 0, 0], rotation: [0, 0, 0] });
+  // });
 
   const displayTokens = () => {
       const tokens = [];

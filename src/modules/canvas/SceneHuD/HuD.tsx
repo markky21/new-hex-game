@@ -1,17 +1,14 @@
-import React, {Suspense, useEffect, useRef, useState} from 'react';
-import {Group, OrthographicCamera, Scene, Vector3, PerspectiveCamera} from 'three';
-import { createPortal, useFrame, useThree, useUpdate } from 'react-three-fiber';
-import {Token} from "./Token/Token";
-import { PlayerHand } from './PlayerHand';
+import React, {useEffect, useRef, useState} from 'react';
+import {Group, PerspectiveCamera, Scene} from 'three';
+import {createPortal, useFrame, useThree} from 'react-three-fiber';
+import {PlayerHand} from './components/PlayerHand';
 
 export function Hud() {
   const { size } = useThree();
   const [scene] = useState(() => new Scene());
   const groupRef = useRef<Group>();
 
-  // const camera = useRef<OrthographicCamera>(new OrthographicCamera(-size.width, size.width, size.height, -size.height, -1000, 1000));
   const camera = useRef<PerspectiveCamera>(new PerspectiveCamera(55,  size.width/size.height ));
-  const [hovered, set] = useState(false);
 
   useEffect(() => {
     camera.current.zoom = 1;
