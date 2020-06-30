@@ -1,30 +1,39 @@
 {
-  "name": "new-gex-game",
+  "name": "new-hex-game",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/stats.js": "^0.17.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "react-three-fiber": "^4.2.10",
-    "stats.js": "^0.17.0",
-    "three": "^0.117.1",
-    "typescript": "~3.7.2"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pretty": "pretty-quick --pattern \"src/**/*.(ts | tsx | js)\""
+  },
+  "dependencies": {
+    "@datorama/akita": "^5.1.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "react-spring-three": "^1.0.4",
+    "react-three-fiber": "^4.2.10",
+    "rxjs": "^6.5.5",
+    "stats.js": "^0.17.0",
+    "three": "^0.117.1",
+    "typescript": "~3.7.2"
+  },
+  "devDependencies": {
+    "@datorama/akita-ngdevtools": "^5.0.3",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/stats.js": "^0.17.0",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,11 +50,6 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "husky": "^4.2.5",
-    "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.1"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "npm run pretty",
@@ -59,5 +63,11 @@
     "jsxBracketSameLine": true,
     "tabWidth": 2,
     "printWidth": 120
+  },
+  "akitaCli": {
+    "basePath": "./src/store/",
+    "template": "ts",
+    "idKey": "id",
+    "customFolderName": true
   }
 }
