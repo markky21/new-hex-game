@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useObservable } from 'react-use';
 
-export const Debug: React.FC = () => {
-  const [showTokensPanel, setShowTokensPanel] = useState(true);
+import { uiQuery } from '../../../store/ui/ui.query';
+import { uiService } from '../../../store/ui/ui.service';
+import { uiStore } from '../../../store/ui/ui.store';
+
+export const Debug: React.FC = React.memo(() => {
+  const showTokensPanel = useObservable(uiQuery.debug_showTokensPanel$, uiStore.getValue().debug_showTokensPanel);
+  const setShowTokensPanel = (checked: boolean) => uiService.updateDebugShowTokensPanel(checked);
 
   return (
     <div>
@@ -9,13 +15,10 @@ export const Debug: React.FC = () => {
         id="showTokensPanel"
         type="checkbox"
         checked={showTokensPanel}
-        onChange={(e) => {
-          console.log({ e, showTokensPanel });
-          setShowTokensPanel(e.target.checked as any);
-        }}
+        onChange={(e) => setShowTokensPanel(e.target.checked)}
         name="showTokensPanel"
       />
       <label htmlFor="showTokensPanel">showTokensPanel</label>
     </div>
   );
-};
+});
