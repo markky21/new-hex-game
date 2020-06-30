@@ -86,3 +86,12 @@ export const equal: (a: any, b: any) => boolean = (a: any, b: any) => {
 
   return a !== a && b !== b;
 };
+
+export const shuffleArray = (arr: any[]) => {
+  var m = arr.length;
+  while (m) {
+    let i = Math.floor(Math.random() * m--);
+    [arr[m], arr[i]] = [arr[i], arr[m]];
+  }
+  return arr;
+};

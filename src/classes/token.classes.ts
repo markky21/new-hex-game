@@ -101,6 +101,12 @@ export interface ArmyTokenSet {
   enhancementsTokens: { token: typeof TokenEnhancementClass; amount: number }[];
 }
 
+export interface ArmyTokenSetInstance {
+  actionsTokens: Array<TokenActionClass>;
+  soldiersTokens: Array<TokenSoldierClass>;
+  enhancementsTokens: Array<TokenEnhancementClass>;
+}
+
 export interface TokenSoldier extends Token {
   attacks: AttacksClass;
   board: BoardTokenClass;
