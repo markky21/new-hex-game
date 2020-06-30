@@ -1,20 +1,22 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Group, PerspectiveCamera, Scene} from 'three';
-import {createPortal, useFrame, useThree} from 'react-three-fiber';
-import {PlayerHand} from './components/PlayerHand';
+import React, { useEffect, useRef, useState } from 'react';
+import { OrthographicCamera, Scene as ThreeScene } from 'three';
+import { createPortal, useFrame, useThree } from 'react-three-fiber';
+import { Scene } from './components/Scene';
+import { TokensPanel } from './components/TokensPanel/TokensPanel';
 
-export function Hud() {
+export function Hud(debug?: boolean) {
   const { size } = useThree();
-  const [scene] = useState(() => new Scene());
-  const groupRef = useRef<Group>();
+  const [scene] = useState(() => new ThreeScene());
 
-  const camera = useRef<PerspectiveCamera>(new PerspectiveCamera(55,  size.width/size.height ));
+  const camera = useRef<OrthographicCamera>(
+    new OrthographicCamera(size.width / -2, size.width / 2, size.height / 2, size.height / -2, -100, 100)
+  );
 
   useEffect(() => {
     camera.current.zoom = 1;
     camera.current.updateProjectionMatrix();
-    scene.position.set(0, -5, 0);
-  }, [camera.current]);
+    scene.position.set(0, 0, 10);
+  }, [ scene.position]);
 
   useFrame(({ gl }): void => {
     gl.autoClear = false;
@@ -23,9 +25,9 @@ export function Hud() {
   }, 10);
 
   return createPortal(
-    <group ref={groupRef}>
-      <PlayerHand position={[0, 0, -18]} />
-    </group>,
+    <Scene debug={debug}>
+      <TokensPanel />
+    </Scene>,
     scene
   );
 }

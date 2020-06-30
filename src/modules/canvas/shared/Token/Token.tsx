@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 
 import normalMapTexture from './normal-map-metal.jpg';
 
-const hexRadius = 1;
 
 interface TokenProps {
   position: Vector3;
+  hexRadius?: number
 }
-export const Token: React.FC<TokenProps> = React.memo(({ position }) => {
+export const Token: React.FC<TokenProps> = React.memo(({ position, hexRadius = 1 }) => {
   const normalMap = useLoader(TextureLoader, normalMapTexture);
 
   const [positionHex] = useState<Vector3>(position);
