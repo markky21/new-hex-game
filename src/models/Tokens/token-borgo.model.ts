@@ -6,13 +6,12 @@ import {
   ShieldsClass,
   SimpleAttackClass,
   SimpleEnhancementClass,
-  SimpleShieldClass, TokenClass,
+  SimpleShieldClass,
   TokenEnhancementClass,
   TokenSoldierClass,
 } from '../../classes/token.classes';
 import { AttackType, EnhancementType } from '../hex.model';
 import { TokenActionBattle, TokenActionGrenade, TokenActionMove } from './token-actions.model';
-import {shuffleArray} from "../../utils/object.utils";
 
 class BorgoSoldierMutty extends TokenSoldierClass {
   name: 'Mutty';
@@ -90,7 +89,7 @@ class MedicEnhancement extends TokenEnhancementClass {
     2: new SimpleEnhancementClass(1, EnhancementType.HP),
   });
   name: 'Medic';
-  board = new BoardTokenClass({ hp: 1, attackRound:[0]});
+  board = new BoardTokenClass({ hp: 1, attackRound: [0] });
 }
 
 class OfficerEnhancement extends TokenEnhancementClass {
