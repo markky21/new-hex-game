@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Euler } from 'three';
-import { BoardFieldInterface } from '../models/hex.model';
-import { Text } from './Text';
+import { BoardFieldInterface } from '../../models/hex.model';
+import { Text } from '../../shared/Texts/Text';
 
 interface GameBoardFieldProps extends BoardFieldInterface {
   id: string;

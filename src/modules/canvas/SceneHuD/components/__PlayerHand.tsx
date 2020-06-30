@@ -1,16 +1,19 @@
+export const asd = 0;
+
+/*
+
 import React, {Suspense, useEffect, useState} from 'react';
 import { Vector3 } from 'three';
 import { useFrame, useThree, useUpdate, ReactThreeFiber } from 'react-three-fiber';
 import { useSpring, a } from 'react-spring/three';
 import {Token} from "./Token/Token";
-import {TokenClass} from "../../../classes/token.classes";
-import { playerService } from "../../../App";
+import {TokenClass} from "../../../../classes/token.classes";
+import { playerService } from "../../../../App";
 
 interface HudParams {
     position: [number,number, number];
 }
-
-export const PlayerHand:React.FC<HudParams> = ({ position }: HudParams = { position: [0,0,0] }) => {
+export const __PlayerHand:React.FC<HudParams> = ({ position }: HudParams = { position: [0,0,0] }) => {
     let hand: TokenClass[];
     let tokenSet: TokenClass[];
 
@@ -82,3 +85,4 @@ export const PlayerHand:React.FC<HudParams> = ({ position }: HudParams = { posit
       </a.group>
  );
 };
+*/
