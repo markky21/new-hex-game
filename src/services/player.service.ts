@@ -17,7 +17,6 @@ export class PlayerService implements Player {
 
 
   drawTokens(handInfo: { currentHandAmount: number }, tokenSet: TokenClass[]): void {
-    console.log('jeb');
     const drawedTokens = [];
 
     for (let drawRound of new Array(3 - handInfo.currentHandAmount)) {
