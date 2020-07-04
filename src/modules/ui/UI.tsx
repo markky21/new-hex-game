@@ -15,7 +15,7 @@ const styles: { [key: string]: CSSProperties } = {
 export const UI: React.FC = () => {
   return (
     <section style={styles.main}>
-      Hola
+      From Server:
       <Debug />
     </section>
   );
