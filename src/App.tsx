@@ -1,10 +1,11 @@
 import React from 'react';
 import { Canvas } from './modules/canvas/Canvas';
 
-import { UI } from './modules/ui/UI';
+import { InGameUI } from './modules/ui/InGameUI';
 import { akitaDevtools } from '@datorama/akita';
 import { mainService } from './services/main.service';
 import { ApiService } from './services/api.service';
+import {GameInit} from "./modules/ui/components/GameInit/GameInit";
 
 akitaDevtools();
 
@@ -18,7 +19,8 @@ function App() {
   return (
     <>
       {/* <Canvas />*/}
-      <UI />
+      <InGameUI />
+      <GameInit />
     </>
   );
 }

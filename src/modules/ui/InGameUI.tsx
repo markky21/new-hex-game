@@ -12,11 +12,11 @@ const styles: { [key: string]: CSSProperties } = {
   },
 };
 
-export const UI: React.FC = () => {
+export const InGameUI: React.FC = () => {
   return (
-    <section style={styles.main}>
-      From Server:
-      <Debug />
-    </section>
+        <section style={styles.main}>
+        From Server:
+        <Debug />
+          </section>
   );
 };

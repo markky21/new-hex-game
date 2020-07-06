@@ -3,18 +3,18 @@ import {Observable, Subject} from 'rxjs';
 import {Player} from '../models/main.model';
 import {Army} from '../models/hex.model';
 import {ArmyService} from './army.service';
+import {shuffleArray} from "../utils/object.utils";
 
 export class PlayerService implements Player {
   army: ArmyService;
-
-  constructor(public name: string, public armyType: Army) {
-    this.army = new ArmyService(armyType);
-  }
-
+  set: TokenClass[];
   private currentHandTokens: Subject<TokenClass[]> = new Subject();
   private playerTokenSet: Subject<TokenClass[]> = new Subject();
   private handTokenSet: TokenClass[] = [];
 
+  constructor(public name: string, public armyType: Army) {
+    this.army = new ArmyService(armyType);
+  }
 
   drawTokens(handInfo: { currentHandAmount: number }, tokenSet: TokenClass[]): void {
     console.log('jeb');
