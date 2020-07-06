@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react';
 import './styles.scss';
 import socketIOCient from 'socket.io-client';
 
-const ENDPOINT = 'http://127.0.0.1:3333';
+const ENDPOINT = 'http://127.0.0.1:3333/setPlayers';
 const socket = socketIOCient(ENDPOINT);
 
 interface Player {
     name: string;
 }
 
-export const GameInit : React.FC = () => {
+export const SetPlayers : React.FC = () => {
     const joinGame = () => {
         socket.emit('joinPlayer', { name: player})
     }
@@ -59,7 +59,7 @@ export const GameInit : React.FC = () => {
     const [otherPlayers, setOtherPlayers] = useState([]);
 
     return (
-        <div className='GameInit'>
+        <div className='SetPlayers'>
             Hex Game Init
 
             { thisPlayer ? displayThisJoinedPlayerInfo() : displaySetThisPlayer() }

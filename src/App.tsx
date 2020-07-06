@@ -5,7 +5,7 @@ import { InGameUI } from './modules/ui/InGameUI';
 import { akitaDevtools } from '@datorama/akita';
 import { mainService } from './services/main.service';
 import { ApiService } from './services/api.service';
-import {GameInit} from "./modules/ui/components/GameInit/GameInit";
+import {SetPlayers} from "./modules/ui/components/GameInit/SetPlayers";
 
 akitaDevtools();
 
@@ -20,7 +20,7 @@ function App() {
     <>
       {/* <Canvas />*/}
       <InGameUI />
-      <GameInit />
+      <SetPlayers />
     </>
   );
 }
