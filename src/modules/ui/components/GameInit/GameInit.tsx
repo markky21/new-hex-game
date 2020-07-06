@@ -15,30 +15,28 @@ export const GameInit : React.FC = () => {
     }
 
     const handleJoinPlayer = (playerFromServer: Player) => {
-        if (playerFromServer.name === player) {
-            setThisPlayer(playerFromServer.name);
-        } else {
-            addPlayer((prevState: Player[]) => prevState.concat([playerFromServer]));
-        }
+        setThisPlayer(playerFromServer.name);
     }
 
     useEffect(() => {
         socket.on('joinedPlayer', (msg) => handleJoinPlayer(msg));
+        socket.on('playersList', (playersList: Player[]) => setOtherPlayers(playersList));
     }, []);
 
-    const joinedPlayersTiles = () => joinedPlayers.filter(pl => pl.name === thisPlayer).map((player: {name:string}, index: number) => (
-        <div key={`player${index}-${player.name}`}>
-            { player.name }
-        </div>
-    ));
+    const joinedPlayersTiles = () => otherPlayers.filter(pl => pl.name !== player).map((player: Player, index: number) => (
+                <div key={`player${index}-${player.name}`}>
+                    { player.name }
+                </div>
+            )
+        );
 
     const displaySetThisPlayer = () => {
         return (
             <div>
                 <p>
-                    Your nick: <input type={"text"} value={player} onChange={(event) => setPlayer(event.currentTarget.value)}/>
+                    Your nick: <input type={"text"} value={player} onChange={(event) => setPlayer(event.currentTarget.value)} />
                 </p>
-                <button type={"button"} onClick={joinGame}>Join</button>
+                <button type={"button"} onClick={joinGame} disabled={player === 'Player' || !player}>Join</button>
             </div>
         )
     };
@@ -56,20 +54,20 @@ export const GameInit : React.FC = () => {
         )
     };
 
-    const [player, setPlayer] = useState('Player1');
+    const [player, setPlayer] = useState('Player');
     const [thisPlayer, setThisPlayer] = useState(null);
-    const [joinedPlayers, addPlayer] = useState([]);
+    const [otherPlayers, setOtherPlayers] = useState([]);
 
     return (
         <div className='GameInit'>
             Hex Game Init
 
             { thisPlayer ? displayThisJoinedPlayerInfo() : displaySetThisPlayer() }
-            { !!joinedPlayers.length && (
-                <div>
+            { thisPlayer && (<div>
                 Other players joined:
                 { joinedPlayersTiles() }
-            </div>) }
+            </div>)
+                }
         </div>
     )
 }
