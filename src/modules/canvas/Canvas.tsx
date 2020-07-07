@@ -43,7 +43,7 @@ export const Canvas: React.FC<CanvasProps> = ({ debug = true }) => {
       onMouseDown={() => setMouseDown(true)}>
       <CameraControlContextProvider>
         // @ts-ignore
-        <Main />
+        {/*<Main />*/}
         // @ts-ignore
         <Hud />
       </CameraControlContextProvider>
