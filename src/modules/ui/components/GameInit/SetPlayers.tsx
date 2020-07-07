@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import './styles.scss';
 import socketIOCient from 'socket.io-client';
+import {Army} from "../../../../models/hex.model";
 
 const ENDPOINT = 'http://127.0.0.1:3333/setPlayers';
 const socket = socketIOCient(ENDPOINT);
 
 interface Player {
     name: string;
+    army: string;
+    ready?: boolean;
 }
 
 export const SetPlayers : React.FC = () => {
@@ -20,13 +23,15 @@ export const SetPlayers : React.FC = () => {
 
     useEffect(() => {
         socket.on('joinedPlayer', (msg) => handleJoinPlayer(msg));
+        socket.on('ready', () => thisPlayer.ready = true);
         socket.on('playersList', (playersList: Player[]) => setOtherPlayers(playersList));
     }, []);
 
     const joinedPlayersTiles = () => otherPlayers.filter(pl => pl.name !== player).map((player: Player, index: number) => (
                 <div key={`player${index}-${player.name}`}>
-                    { player.name }
+                    { player.name } { player.ready && <strong>READY</strong> }
                 </div>
+
             )
         );
 
@@ -41,6 +46,10 @@ export const SetPlayers : React.FC = () => {
         )
     };
 
+    const confirmReady = () => {
+        socket.emit('playerReady', { player: thisPlayer, ready:true});
+    };
+
     const displayThisJoinedPlayerInfo = () => {
         return (
             <div>
@@ -50,11 +59,13 @@ export const SetPlayers : React.FC = () => {
                 <p>
                 Army:
                 </p>
+                <button type="button" onClick={confirmReady}>Confirm ready to play</button>
             </div>
         )
     };
 
     const [player, setPlayer] = useState('Player');
+    const [army, setArmy] = useState(Army.BORGO);
     const [thisPlayer, setThisPlayer] = useState(null);
     const [otherPlayers, setOtherPlayers] = useState([]);
 

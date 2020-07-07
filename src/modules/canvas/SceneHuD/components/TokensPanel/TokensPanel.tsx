@@ -6,18 +6,12 @@ import { useObservable } from 'react-use';
 import { uiQuery } from '../../../../../store/ui/ui.query';
 import { uiStore } from '../../../../../store/ui/ui.store';
 import { animated, useSpring } from '@react-spring/three';
-import {gameService} from "../../../../../services/game.service";
-import {shuffleArray} from "../../../../../utils/object.utils";
 import {TokenClass} from "../../../../../classes/token.classes";
 
 const panelHeight = (height) => height * 0.25;
 
 export const TokensPanel: React.FC = React.memo(() => {
   const showTokensPanel = useObservable(uiQuery.debug_showTokensPanel$, uiStore.getValue().debug_showTokensPanel);
-  const player = gameService.players.get('Desperado');
-  const initialMixedTokens = shuffleArray(Object.values(player.army.tokens).flat());
-  const tokenSet = useObservable(player.getPlayerTokenSet(), initialMixedTokens);
-  const hand = useObservable(player.getHandTokens());
   const { size } = useThree();
 
   const { panelPosition } = useSpring({
@@ -35,10 +29,6 @@ export const TokensPanel: React.FC = React.memo(() => {
     }
   };
 
-  useEffect(() => {
-    player.drawTokens({ currentHandAmount: hand ? hand.length : 0 }, tokenSet);
-  }, []);
-
   return (
     <animated.group position={panelPosition as any}>
       {/*Panel*/}
@@ -49,7 +39,7 @@ export const TokensPanel: React.FC = React.memo(() => {
         </mesh>
       </group>
       <group>
-        { createTokenElements(hand) }
+        {/*{ createTokenElements(hand) }*/}
       </group>
     </animated.group>
   );
