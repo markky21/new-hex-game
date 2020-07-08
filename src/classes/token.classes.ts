@@ -80,6 +80,18 @@ export abstract class TokenSoldierClass extends TokenClass implements TokenSoldi
   abstract enableMovement: boolean;
 }
 
+export abstract class TokenBaseClass implements TokenSoldierClass, TokenEnhancementClass {
+  type = TokenType.BASE;
+  board = new BoardTokenClass({hp: 20, attackRound: [0]});
+  attacks = new AttacksClass({
+    allDirections: new SimpleAttackClass(AttackType.MELEE, 1)
+  });
+  abstract enableMovement: boolean;
+  abstract enhancements: EnhancementsClass;
+  abstract name: string;
+  abstract shields: ShieldsClass;
+}
+
 export abstract class TokenActionClass extends TokenClass implements TokenAction {
   type = TokenType.ACTION;
   abstract effect: ActionType;

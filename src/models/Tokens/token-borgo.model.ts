@@ -6,12 +6,21 @@ import {
   ShieldsClass,
   SimpleAttackClass,
   SimpleEnhancementClass,
-  SimpleShieldClass,
+  SimpleShieldClass, TokenBaseClass,
   TokenEnhancementClass,
   TokenSoldierClass,
 } from '../../classes/token.classes';
 import { AttackType, EnhancementType } from '../hex.model';
 import { TokenActionBattle, TokenActionGrenade, TokenActionMove } from './token-actions.model';
+
+export class BorgoBase extends TokenBaseClass {
+  shields = null;
+  name = 'BorgoBase';
+  enableMovement = false;
+  enhancements = new EnhancementsClass({
+    allDirections: new SimpleEnhancementClass(1, EnhancementType.SPEED),
+  });
+}
 
 class BorgoSoldierMutty extends TokenSoldierClass {
   name: 'Mutty';

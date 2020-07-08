@@ -9,7 +9,13 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": "..",
+    "rootDirs": [
+      "server/src",
+      "src/models",
+      "src/utils",
+      "src/classes"
+      ],
     "incremental": true
   }
 }

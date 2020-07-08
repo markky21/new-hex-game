@@ -9,4 +9,8 @@ export class GameService {
   public registerPlayer(name: string, army: Army) {
     this.players.set(name, new PlayerService(name, army));
   }
+
+  public getPlayer(player: string): PlayerService {
+    return this.players.get(player);
+  }
 }

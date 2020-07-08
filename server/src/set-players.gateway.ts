@@ -7,14 +7,15 @@ import {
   WebSocketServer
 } from '@nestjs/websockets';
 import {Server, Socket} from "socket.io";
+import { GameService } from './services/game.service';
+import { Army } from '../../src/models/hex.model';
 
-@WebSocketGateway({namespace: 'setPlayers'})
-export class SetPlayersGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+@WebSocketGateway( {namespace: 'setPlayers'})
+export class SetPlayersGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
   private players: any[] = [];
 
-  afterInit(server: Server): any {
-  }
+  constructor(private gameService: GameService) {}
 
   handleConnection(client: Socket, ...args): any {
     console.log('Connected client', client.id);
@@ -42,17 +43,16 @@ export class SetPlayersGateway implements OnGatewayInit, OnGatewayConnection, On
 
   @SubscribeMessage('playerReady')
   handlePlayerReady(@ConnectedSocket() client: Socket,
-                @MessageBody() readyMsg: { player: string, ready: boolean }): void {
+                @MessageBody() readyMsg: { player: string, ready: boolean, army: Army }): void {
     const playerToConfirm = this.players.find(pl => pl.name === readyMsg.player);
 
     playerToConfirm.ready = true;
     client.emit('ready');
     this.server.emit('playersList', this.players);
-    console.log(this.players);
 
     if (this.players.length === 3 && this.players.every(player => !!player.ready)) {
+      this.gameService.registerPlayer(readyMsg.player, readyMsg.army);
       this.server.emit('startTheGame');
-      console.log('emitted start game');
     }
   }
 }

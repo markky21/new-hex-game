@@ -3,8 +3,9 @@ import './styles.scss';
 import socketIOCient from 'socket.io-client';
 import {Army} from "../../../../models/hex.model";
 
-const ENDPOINT = 'http://127.0.0.1:3333/setPlayers';
-const socket = socketIOCient(ENDPOINT);
+const ENDPOINT = 'http://127.0.0.1:3333/';
+const setPlayerSocket = socketIOCient(`${ENDPOINT}setPlayers`);
+const gameSocket = socketIOCient(`${ENDPOINT}game`);
 
 interface Player {
     name: string;
@@ -14,18 +15,16 @@ interface Player {
 
 export const SetPlayers : React.FC = () => {
     const joinGame = () => {
-        socket.emit('joinPlayer', { name: player})
+        setPlayerSocket.emit('joinPlayer', { name: player });
     }
 
     const handleJoinPlayer = (playerFromServer: Player) => {
         setThisPlayer(playerFromServer.name);
     }
 
-    useEffect(() => {
-        socket.on('joinedPlayer', (msg) => handleJoinPlayer(msg));
-        socket.on('ready', () => thisPlayer.ready = true);
-        socket.on('playersList', (playersList: Player[]) => setOtherPlayers(playersList));
-    }, []);
+  const confirmReady = () => {
+    setPlayerSocket.emit('playerReady', { player: thisPlayer, ready:true, army});
+  };
 
     const joinedPlayersTiles = () => otherPlayers.filter(pl => pl.name !== player).map((player: Player, index: number) => (
                 <div key={`player${index}-${player.name}`}>
@@ -46,10 +45,6 @@ export const SetPlayers : React.FC = () => {
         )
     };
 
-    const confirmReady = () => {
-        socket.emit('playerReady', { player: thisPlayer, ready:true});
-    };
-
     const displayThisJoinedPlayerInfo = () => {
         return (
             <div>
@@ -63,6 +58,16 @@ export const SetPlayers : React.FC = () => {
             </div>
         )
     };
+
+  useEffect(() => {
+    setPlayerSocket.on('joinedPlayer', (plyr) => handleJoinPlayer(plyr));
+    setPlayerSocket.on('playersList', (playersList: Player[]) => setOtherPlayers(playersList));
+    setPlayerSocket.on('ready', () => console.log('ready'));
+    setPlayerSocket.on('startTheGame', () => {
+      setPlayerSocket.close();
+      gameSocket.emit('initialRound', { player: thisPlayer, army });
+    });
+  }, []);
 
     const [player, setPlayer] = useState('Player');
     const [army, setArmy] = useState(Army.BORGO);

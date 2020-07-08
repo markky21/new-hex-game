@@ -1,4 +1,4 @@
-import {TokenClass} from '../../../src/classes/token.classes';
+import { TokenClass } from '../../../src/classes/token.classes';
 import {Observable, Subject} from 'rxjs';
 import {Player} from '../../../src/models/main.model';
 import {Army} from '../../../src/models/hex.model';
@@ -14,13 +14,25 @@ export class PlayerService implements Player {
 
   constructor(public name: string, public armyType: Army) {
     this.army = new ArmyService(armyType);
+
+    const { tokens } = this.army;
+    const tokensGroupsArray: Array<TokenClass[]> = Object.values(tokens);
+
+    /* tslint:disable-next-line */
+    const tokenSet: TokenClass[] = shuffleArray(tokensGroupsArray.flat());
+
+    this.playerTokenSet.next(tokenSet);
+  }
+
+  drawBase() :void {
+    this.handTokenSet = [this.army.base];
+    this.currentHandTokens.next(this.handTokenSet);
   }
 
   drawTokens(handInfo: { currentHandAmount: number }, tokenSet: TokenClass[]): void {
-    console.log('jeb');
     const drawedTokens = [];
 
-    for (let drawRound of new Array(3 - handInfo.currentHandAmount)) {
+    for (const drawRound of new Array(3 - handInfo.currentHandAmount)) {
       const randomIndex = Math.round(Math.random() * tokenSet.length);
       drawedTokens.push(...tokenSet.splice(randomIndex, 1));
     }

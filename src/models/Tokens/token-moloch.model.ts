@@ -8,7 +8,7 @@ import {
   SimpleShieldClass,
   ShieldsClass,
   TokenSoldierClass,
-  TokenEnhancementClass,
+  TokenEnhancementClass, TokenBaseClass,
 } from '../../classes/token.classes';
 import { AttackType, EnhancementType } from '../hex.model';
 import {
@@ -18,6 +18,15 @@ import {
   TokenActionMove,
   TokenActionPush,
 } from './token-actions.model';
+
+export class MolochBase extends TokenBaseClass {
+  shields = null;
+  name = 'MolochBase';
+  enableMovement = false;
+  enhancements = new EnhancementsClass({
+    allDirections: new SimpleEnhancementClass(1, EnhancementType.MELEE),
+  });
+}
 
 class MolochSoldierBlocker extends TokenSoldierClass {
   name: 'Blocker';

@@ -39,6 +39,7 @@ export interface BoardToken {
 }
 
 export enum TokenType {
+  BASE= 'BASE',
   ACTION = 'ACTIONTOKEN',
   SOLDIER = 'SOLDIER',
   ENHANCEMENT = 'ENHANCEMENT',
