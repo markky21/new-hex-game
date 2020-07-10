@@ -29,7 +29,7 @@ export class MolochBase extends TokenBaseClass {
 }
 
 class MolochSoldierBlocker extends TokenSoldierClass {
-  name: 'Blocker';
+  name = 'Blocker';
   board = new BoardTokenClass({ hp: 3, attackRound: [0] });
   attacks = new AttacksClass({});
   shields = new ShieldsClass({
@@ -43,7 +43,7 @@ class MolochSoldierCyborg extends TokenSoldierClass {
     1: new SimpleAttackClass(AttackType.SHOT, 1),
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [3] });
-  name: 'Cyborg';
+  name = 'Cyborg';
   shields = new ShieldsClass({});
   enableMovement = false;
 }
@@ -53,7 +53,7 @@ class MolochSoldierGaussCannon extends TokenSoldierClass {
     5: new SimpleAttackClass(AttackType.GAUSS, 1),
   });
   board = new BoardTokenClass({ hp: 2, attackRound: [1] });
-  name: 'Gauss Cannon';
+  name = 'Gauss Cannon';
   shields = new ShieldsClass({});
   enableMovement = false;
 }
@@ -69,7 +69,7 @@ class MolochSoldierJuggernaut extends TokenSoldierClass {
     5: new SimpleShieldClass(1),
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
-  name: 'Juggernaut';
+  name = 'Juggernaut';
   enableMovement = false;
 }
 
@@ -79,7 +79,7 @@ class MolochSoldierClown extends TokenSoldierClass {
     1: new SimpleAttackClass(AttackType.MELEE, 1),
   });
   board = new BoardTokenClass({ hp: 2, attackRound: [2] });
-  name: 'Clown';
+  name = 'Clown';
   shields = new ShieldsClass({});
   enableMovement = false;
 }
@@ -92,7 +92,7 @@ class MolochSoldierHunter extends TokenSoldierClass {
     4: new SimpleAttackClass(AttackType.MELEE, 1),
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [3] });
-  name: 'Hunter';
+  name = 'Hunter';
   shields = new ShieldsClass({});
   enableMovement = false;
 }
@@ -104,7 +104,7 @@ class MolochSoldierDefender extends TokenSoldierClass {
     2: new SimpleAttackClass(AttackType.SHOT, 1),
   });
   board = new BoardTokenClass({ hp: 2, attackRound: [1] });
-  name: 'Defender';
+  name = 'Defender';
   shields = new ShieldsClass({});
   enableMovement = false;
 }
@@ -123,7 +123,7 @@ class MolochSoldierPanzerHunter extends TokenSoldierClass {
     1: new SimpleShieldClass(1),
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
-  name: 'Panzer Hunter';
+  name = 'Panzer Hunter';
   enableMovement = false;
 }
 
@@ -133,7 +133,7 @@ class MolochSoldierPanzerWatchmen extends TokenSoldierClass {
     1: new SimpleAttackClass(AttackType.SHOT, 1),
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
-  name: 'Panzer Watchmen';
+  name = 'Panzer Watchmen';
   shields = new ShieldsClass({});
   enableMovement = false;
 }
@@ -143,7 +143,7 @@ class MolochSoldierReaper extends TokenSoldierClass {
     1: new SimpleAttackClass(AttackType.MELEE, 2),
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
-  name: 'Reaper';
+  name = 'Reaper';
   shields = new ShieldsClass({});
   enableMovement = false;
 }
@@ -154,7 +154,7 @@ class MolochSoldierWebmaster extends TokenSoldierClass {
     1: new SimpleAttackClass(AttackType.NET, 1),
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
-  name: 'Webmaster';
+  name = 'Webmaster';
   shields = new ShieldsClass({});
   enableMovement = false;
 }
@@ -164,7 +164,7 @@ class MolochSoldierStormTrooper extends TokenSoldierClass {
     1: new SimpleAttackClass(AttackType.SHOT, 1),
   });
   board = new BoardTokenClass({ hp: 2, attackRound: [2, 1] });
-  name: 'Storm Trooper';
+  name = 'Storm Trooper';
   shields = new ShieldsClass({});
   enableMovement = false;
 }
@@ -179,7 +179,7 @@ class MolochSoldierWatchman extends TokenSoldierClass {
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
   enableMovement = false;
-  name: 'Watchman';
+  name = 'Watchman';
 }
 
 class MedicEnhancement extends TokenEnhancementClass {
@@ -284,11 +284,6 @@ export const TokenMolochModel: ArmyTokenSet = {
       token: MolochSoldierClown,
       amount: 2,
     },
-    // TODO check this position if exist
-    /* { 
-      token: MolochSoldierKiller,
-      amount: 2,
-    },*/
     {
       token: MolochSoldierHunter,
       amount: 2,

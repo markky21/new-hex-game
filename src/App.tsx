@@ -3,7 +3,7 @@ import React from 'react';
 import { InGameUI } from './modules/ui/InGameUI';
 import { akitaDevtools } from '@datorama/akita';
 import { mainService } from './services/main.service';
-import {SetPlayers} from "./modules/ui/components/GameInit/SetPlayers";
+import {SetPlayers} from "./modules/ui/components/SetPlayers/SetPlayers";
 
 akitaDevtools();
 

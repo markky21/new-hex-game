@@ -23,7 +23,7 @@ export class BorgoBase extends TokenBaseClass {
 }
 
 class BorgoSoldierMutty extends TokenSoldierClass {
-  name: 'Mutty';
+  name = 'Mutty';
   attacks = new AttacksClass({
     0: new SimpleAttackClass(AttackType.MELEE, 1),
     1: new SimpleAttackClass(AttackType.MELEE, 1),
@@ -40,7 +40,7 @@ class BorgoSoldierCutler extends TokenSoldierClass {
     5: new SimpleAttackClass(AttackType.MELEE, 1),
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [3] });
-  name: 'Cutler';
+  name = 'Cutler';
   enableMovement = false;
   shields = new ShieldsClass({});
 }
@@ -50,7 +50,7 @@ class BorgoSoldierWebmaster extends TokenSoldierClass {
     3: [new SimpleAttackClass(AttackType.MELEE, 3), new SimpleAttackClass(AttackType.NET, 1)],
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [1] });
-  name: 'Webmaster';
+  name = 'Webmaster';
   enableMovement = false;
   shields = new ShieldsClass({});
 }
@@ -67,7 +67,7 @@ class BorgoSoldierSuperMutant extends TokenSoldierClass {
     2: new SimpleShieldClass(1),
   });
   board = new BoardTokenClass({ hp: 2, attackRound: [2] });
-  name: 'Super-mutant';
+  name = 'Super-mutant';
   enableMovement = false;
 }
 
@@ -76,7 +76,7 @@ class BorgoSoldierMusclehead extends TokenSoldierClass {
     1: new SimpleAttackClass(AttackType.MELEE, 2),
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
-  name: 'Musclehead';
+  name = 'Musclehead';
   enableMovement = false;
   shields = new ShieldsClass({});
 }
@@ -86,7 +86,7 @@ class BorgoSoldierKiller extends TokenSoldierClass {
     0: new SimpleAttackClass(AttackType.SHOT, 1),
   });
   board = new BoardTokenClass({ hp: 1, attackRound: [3] });
-  name: 'Killer';
+  name = 'Killer';
   enableMovement: true;
   shields = new ShieldsClass({});
 }
@@ -97,7 +97,7 @@ class MedicEnhancement extends TokenEnhancementClass {
     1: new SimpleEnhancementClass(1, EnhancementType.HP),
     2: new SimpleEnhancementClass(1, EnhancementType.HP),
   });
-  name: 'Medic';
+  name = 'Medic';
   board = new BoardTokenClass({ hp: 1, attackRound: [0] });
 }
 
@@ -107,7 +107,7 @@ class OfficerEnhancement extends TokenEnhancementClass {
     1: new SimpleEnhancementClass(1, EnhancementType.MELEE),
     2: new SimpleEnhancementClass(1, EnhancementType.MELEE),
   });
-  name: 'Officer';
+  name = 'Officer';
   board = new BoardTokenClass({ hp: 1, attackRound: [0] });
 }
 
@@ -117,7 +117,7 @@ class SuperOfficerEnhancement extends TokenEnhancementClass {
     1: new SimpleEnhancementClass(1, EnhancementType.MELEE),
     2: new SimpleEnhancementClass(1, EnhancementType.MELEE),
   });
-  name: 'Super-officer';
+  name = 'Super-officer';
   board = new BoardTokenClass({ hp: 1, attackRound: [0] });
 }
 
@@ -127,7 +127,7 @@ class ScoutEnhancement extends TokenEnhancementClass {
     1: new SimpleEnhancementClass(1, EnhancementType.SPEED),
     2: new SimpleEnhancementClass(1, EnhancementType.SPEED),
   });
-  name: 'Scout';
+  name = 'Scout';
   board = new BoardTokenClass({ hp: 1, attackRound: [0] });
 }
 

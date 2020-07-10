@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SetPlayersGateway } from './set-players.gateway';
 import { GameGateway } from './game.gateway';
-import {GameService} from "./services/game.service";
+import { GameService } from './services/game.service';
 
 @Module({
   imports: [],
