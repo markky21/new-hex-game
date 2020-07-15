@@ -10,8 +10,10 @@ import { GameService } from './services/game.service';
 import { TokenClass } from '../../src/classes/token.classes';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, switchMapTo, tap } from 'rxjs/operators';
+import { Player } from '../../src/models/main.model';
+import { GameEvents } from '../../src/models/game-events.model';
 
-@WebSocketGateway({ namespace: 'game' })
+@WebSocketGateway()
 export class GameGateway implements OnGatewayDisconnect {
   roundObservable$: BehaviorSubject<void>;
   @WebSocketServer() server: Server;
@@ -19,15 +21,17 @@ export class GameGateway implements OnGatewayDisconnect {
   constructor(private gameService: GameService) {}
 
   handleDisconnect(client: any): any {
-    this.roundObservable$.complete();
+    if (this.roundObservable$) {
+      this.roundObservable$.complete();
+    }
   }
 
-  @SubscribeMessage('startGame')
-  handleStartGame(client: Socket, { name, army }): void {
-    this.gameService.registerPlayer(client, name, army);
+  @SubscribeMessage(GameEvents.REGISTERPLAYER)
+  handleRegisterPlayer(client: Socket, { name, armyType }: Player): void {
+    this.gameService.registerPlayer(client, name, armyType, this.server);
   }
 
-  @SubscribeMessage('startRound')
+  @SubscribeMessage(GameEvents.PLAYERROUNDLAUNCH)
   handleStartRound(
     client: Socket
   ): Observable<WsResponse<TokenClass[]>> {
@@ -36,26 +40,28 @@ export class GameGateway implements OnGatewayDisconnect {
       .getHandTokens$();
     this.roundObservable$ = new BehaviorSubject<void>(null);
 
+    console.log('leco tokeny');
     return this.roundObservable$.pipe(
       tap(() => this.gameService.getPlayer(client).drawTokens()),
       switchMapTo(
         handTokensSubscription.pipe(
-          map(data => ({ event: 'tokensIncoming', data })),
+          map(data => ({ event: GameEvents.TOKENSINCOMING, data })),
         ),
       ),
     );
   }
 
-  @SubscribeMessage('gameMove')
+  @SubscribeMessage(GameEvents.GAMEMOVE)
   handleGameMove(
     client: Socket,
     move: { token: TokenClass; move?: string },
   ): void {
+    console.log(move);
     this.gameService.getPlayer(client).removeTokenFromHand(move.token);
   }
 
-  @SubscribeMessage('endRound')
-  handleEndRound(client: Socket, playerInfo: { player: string }): void {
+  @SubscribeMessage(GameEvents.ENDROUND)
+  handleEndRound(client: Socket): void {
     this.roundObservable$.complete();
     this.gameService.startNextPlayerRound();
   }

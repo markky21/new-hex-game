@@ -14,7 +14,7 @@ export const Main = (mouseDown: boolean, debug: boolean = true) => {
       <GameBoard debug={debug} />
 
       <Suspense fallback={null}>
-        <Token position={new Vector3(0, 0, 0.01)} />
+        <Token token={null} position={new Vector3(0, 0, 0.01)} />
       </Suspense>
     </Scene>,
     scene

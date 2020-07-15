@@ -6,13 +6,17 @@ import { useObservable } from 'react-use';
 import { uiQuery } from '../../../../../store/ui/ui.query';
 import { uiStore } from '../../../../../store/ui/ui.store';
 import { animated, useSpring } from '@react-spring/three';
-import {TokenClass} from "../../../../../classes/token.classes";
+import { TokenClass } from "../../../../../classes/token.classes";
+import { gameQuery } from '../../../../../store/game/game.query';
 
 const panelHeight = (height) => height * 0.25;
 
 export const TokensPanel: React.FC = React.memo(() => {
   const showTokensPanel = useObservable(uiQuery.debug_showTokensPanel$, uiStore.getValue().debug_showTokensPanel);
+  const hand = useObservable(gameQuery.myPlayerTokens$, null);
   const { size } = useThree();
+
+  console.log('tokens on panel', hand);
 
   const { panelPosition } = useSpring({
     panelPosition: [0, showTokensPanel ? -size.height / 2 + panelHeight(size.height) / 2 : -size.height, 0],
@@ -23,7 +27,7 @@ export const TokensPanel: React.FC = React.memo(() => {
     if (tokens) {
       return tokens.map((token, index) => (
             <Suspense key={`handToken${index}`} fallback={null}>
-              <Token hexRadius={size.width * 0.1} position={new Vector3(0.2 * size.width * index - size.width * 0.2, 0, 0.1)} />
+              <Token token={token} hexRadius={size.width * 0.1} position={new Vector3(0.2 * size.width * index - size.width * 0.2, 0, 0.1)} />
             </Suspense>
       ))
     }
@@ -39,7 +43,7 @@ export const TokensPanel: React.FC = React.memo(() => {
         </mesh>
       </group>
       <group>
-        {/*{ createTokenElements(hand) }*/}
+        { createTokenElements(hand) }
       </group>
     </animated.group>
   );

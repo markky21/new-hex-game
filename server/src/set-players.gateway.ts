@@ -3,16 +3,16 @@ import {
   MessageBody,
   OnGatewayConnection,
   OnGatewayDisconnect,
-  OnGatewayInit,
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { GameService } from './services/game.service';
-import { Army } from '../../src/models/hex.model';
+import { Player } from '../../src/models/main.model';
+import { GameEvents } from '../../src/models/game-events.model';
 
-@WebSocketGateway({ namespace: 'setPlayers' })
+@WebSocketGateway()
 export class SetPlayersGateway
   implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
@@ -22,7 +22,7 @@ export class SetPlayersGateway
 
   handleConnection(client: Socket, ...args): any {
     console.log('Connected client', client.id);
-    client.emit('playersList', this.players);
+    client.emit(GameEvents.PLAYERSLIST, this.players);
   }
 
   handleDisconnect(client: Socket): any {
@@ -36,38 +36,38 @@ export class SetPlayersGateway
         player => player.id === client.id,
       );
       this.players.splice(playerToRemove, 1);
-      this.server.emit('playersList', this.players);
+      this.server.emit(GameEvents.PLAYERSLIST, this.players);
     }
   }
 
-  @SubscribeMessage('joinPlayer')
+  @SubscribeMessage(GameEvents.JOINPLAYER)
   handleJoinPlayer(
     @ConnectedSocket() client: Socket,
-    @MessageBody() playerData: { name: string; army: Army; color: string },
+    @MessageBody() playerData: Player,
   ): void {
     this.players.push({ ...playerData, id: client.id });
-    client.emit('joinedPlayer', { name: playerData.name });
-    this.server.emit('playersList', this.players);
+    client.emit(GameEvents.JOINEDPLAYER, { name: playerData.name });
+    this.server.emit(GameEvents.PLAYERSLIST, this.players);
   }
 
-  @SubscribeMessage('playerReady')
+  @SubscribeMessage(GameEvents.PLAYERREADY)
   handlePlayerReady(
     @ConnectedSocket() client: Socket,
-    @MessageBody() readyMsg: { player: string; ready: boolean; army: Army },
+    @MessageBody() readyMsg: Player,
   ): void {
     const playerToConfirm = this.players.find(
-      pl => pl.name === readyMsg.player,
+      pl => pl.name === readyMsg.name,
     );
 
     playerToConfirm.ready = true;
-    client.emit('ready');
-    this.server.emit('playersList', this.players);
+    client.emit(GameEvents.READY);
+    this.server.emit(GameEvents.PLAYERSLIST, this.players);
 
     if (
       this.players.length === 3 &&
       this.players.every(player => !!player.ready)
     ) {
-      this.server.emit('startTheGame');
+      this.server.emit(GameEvents.GAMEREGISTERPLAYERS);
     }
   }
 }

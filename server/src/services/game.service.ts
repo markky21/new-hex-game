@@ -1,21 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { PlayerService } from './player.service';
 import { Army } from '../../../src/models/hex.model';
-import { WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { GameEvents } from '../../../src/models/game-events.model';
 
 @Injectable()
 export class GameService {
-  @WebSocketServer() server: Server;
-
   players = new Map<Socket, PlayerService>();
   playersEntries: IterableIterator<[Socket, PlayerService]>;
 
-  public registerPlayer(socket: Socket, name: string, army: Army) {
-    this.players.set(socket, new PlayerService(name, army));
+  public registerPlayer(socket: Socket, name: string, armyType: Army, server: Server) {
+    this.players.set(socket, new PlayerService(name, armyType));
 
     //TODO: replace that, this is only TEMPORARILY hard-coded, maybe use sth else to decide when letting 1st player to play
     if (this.players.size === 3) {
+      server.emit(GameEvents.STARTGAME);
       this.setPlayersEntries();
       this.startNextPlayerRound();
     }
@@ -41,7 +40,7 @@ export class GameService {
       const [socket]: [Socket, PlayerService] = nextPlayerEntry.value;
 
       console.log('emit start to: ', socket.id);
-      socket.emit('roundStart');
+      socket.emit(GameEvents.STARTROUND);
     }
   }
 }
