@@ -23,6 +23,7 @@ export class GameGateway implements OnGatewayDisconnect {
   handleDisconnect(client: any): any {
     if (this.roundObservable$) {
       this.roundObservable$.complete();
+      this.gameService.resetPlayers();
     }
   }
 
@@ -61,7 +62,7 @@ export class GameGateway implements OnGatewayDisconnect {
   }
 
   @SubscribeMessage(GameEvents.ENDROUND)
-  handleEndRound(client: Socket): void {
+  handleEndRound(): void {
     this.roundObservable$.complete();
     this.gameService.startNextPlayerRound();
   }

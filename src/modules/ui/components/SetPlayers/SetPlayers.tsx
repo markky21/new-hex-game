@@ -30,8 +30,12 @@ export const SetPlayers : React.FC = () => {
 
 
     const registerPlayer = () => {
-      const { name } = thisPlayer;
-      playerSocket.emit(gameEvents.REGISTERPLAYER, { name, armyType });
+      // COMMENTED IN TEST PHASE - 2 LINES
+      // const { name } = thisPlayer;
+      // playerSocket.emit(gameEvents.REGISTERPLAYER, { name, armyType });
+
+      // TESTING PURPOSES
+      playerSocket.emit(gameEvents.REGISTERPLAYER, { name: 'Test1', armyType: Army.BORGO });
     };
 
     const joinedPlayersTiles = () => otherPlayers.filter(pl => pl.name !== player).map((player: Player, index: number) => (
@@ -71,6 +75,10 @@ export const SetPlayers : React.FC = () => {
     apiService.dispatchEvent(gameEvents.JOINEDPLAYER, handleJoinedPlayer);
     apiService.dispatchEvent(gameEvents.PLAYERSLIST, setOtherPlayers);
     apiService.dispatchEvent(gameEvents.READY, console.log);
+
+    // ONLY FOR TEST PURPOSES - 2 LINES
+    playerSocket.on('connect', registerPlayer);
+    apiService.awaitStartGame([{ name: 'Test1', armyType: Army.BORGO }], { name: 'Test1', armyType: Army.BORGO });
   }, []);
 
     useEffect(() => {

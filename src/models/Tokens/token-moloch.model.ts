@@ -2,11 +2,9 @@ import {
   ArmyTokenSet,
   AttacksClass,
   BoardTokenClass,
-  EnhancementsClass,
   SimpleAttackClass,
   SimpleEnhancementClass,
   SimpleShieldClass,
-  ShieldsClass,
   TokenSoldierClass,
   TokenEnhancementClass, TokenBaseClass,
 } from '../../classes/token.classes';
@@ -23,219 +21,219 @@ export class MolochBase extends TokenBaseClass {
   shields = null;
   name = 'MolochBase';
   enableMovement = false;
-  enhancements = new EnhancementsClass({
-    allDirections: new SimpleEnhancementClass(1, EnhancementType.MELEE),
-  });
+  enhancements = {
+    7: new SimpleEnhancementClass(1, EnhancementType.MELEE),
+  };
 }
 
 class MolochSoldierBlocker extends TokenSoldierClass {
   name = 'Blocker';
   board = new BoardTokenClass({ hp: 3, attackRound: [0] });
-  attacks = new AttacksClass({});
-  shields = new ShieldsClass({
+  attacks = {};
+  shields = {
     1: new SimpleShieldClass(1),
-  });
+  };
   enableMovement = false;
 }
 
 class MolochSoldierCyborg extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     1: new SimpleAttackClass(AttackType.SHOT, 1),
-  });
+  };
   board = new BoardTokenClass({ hp: 1, attackRound: [3] });
   name = 'Cyborg';
-  shields = new ShieldsClass({});
+  shields = {};
   enableMovement = false;
 }
 
 class MolochSoldierGaussCannon extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     5: new SimpleAttackClass(AttackType.GAUSS, 1),
-  });
+  };
   board = new BoardTokenClass({ hp: 2, attackRound: [1] });
   name = 'Gauss Cannon';
-  shields = new ShieldsClass({});
+  shields = {};
   enableMovement = false;
 }
 
 class MolochSoldierJuggernaut extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     1: new SimpleAttackClass(AttackType.MELEE, 2),
     2: new SimpleAttackClass(AttackType.SHOT, 1),
-  });
-  shields = new ShieldsClass({
+  };
+  shields = {
     1: new SimpleShieldClass(1),
     3: new SimpleShieldClass(1),
     5: new SimpleShieldClass(1),
-  });
+  };
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
   name = 'Juggernaut';
   enableMovement = false;
 }
 
 class MolochSoldierClown extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     0: new SimpleAttackClass(AttackType.MELEE, 1),
     1: new SimpleAttackClass(AttackType.MELEE, 1),
-  });
+  };
   board = new BoardTokenClass({ hp: 2, attackRound: [2] });
   name = 'Clown';
-  shields = new ShieldsClass({});
+  shields = {};
   enableMovement = false;
 }
 
 class MolochSoldierHunter extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     0: new SimpleAttackClass(AttackType.MELEE, 1),
     1: new SimpleAttackClass(AttackType.MELEE, 1),
     2: new SimpleAttackClass(AttackType.MELEE, 1),
     4: new SimpleAttackClass(AttackType.MELEE, 1),
-  });
+  };
   board = new BoardTokenClass({ hp: 1, attackRound: [3] });
   name = 'Hunter';
-  shields = new ShieldsClass({});
+  shields = {};
   enableMovement = false;
 }
 
 class MolochSoldierDefender extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     0: new SimpleAttackClass(AttackType.SHOT, 1),
     1: new SimpleAttackClass(AttackType.SHOT, 1),
     2: new SimpleAttackClass(AttackType.SHOT, 1),
-  });
+  };
   board = new BoardTokenClass({ hp: 2, attackRound: [1] });
   name = 'Defender';
-  shields = new ShieldsClass({});
+  shields = {};
   enableMovement = false;
 }
 
 class MolochSoldierPanzerHunter extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     0: new SimpleAttackClass(AttackType.MELEE, 1),
     1: new SimpleAttackClass(AttackType.MELEE, 1),
     2: new SimpleAttackClass(AttackType.MELEE, 1),
     3: new SimpleAttackClass(AttackType.MELEE, 1),
     4: new SimpleAttackClass(AttackType.MELEE, 1),
     5: new SimpleAttackClass(AttackType.MELEE, 1),
-  });
-  shields = new ShieldsClass({
+  };
+  shields = {
     0: new SimpleShieldClass(1),
     1: new SimpleShieldClass(1),
-  });
+  };
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
   name = 'Panzer Hunter';
   enableMovement = false;
 }
 
 class MolochSoldierPanzerWatchmen extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     0: new SimpleAttackClass(AttackType.SHOT, 1),
     1: new SimpleAttackClass(AttackType.SHOT, 1),
-  });
+  };
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
   name = 'Panzer Watchmen';
-  shields = new ShieldsClass({});
+  shields = {};
   enableMovement = false;
 }
 
 class MolochSoldierReaper extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     1: new SimpleAttackClass(AttackType.MELEE, 2),
-  });
+  };
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
   name = 'Reaper';
-  shields = new ShieldsClass({});
+  shields = {};
   enableMovement = false;
 }
 
 class MolochSoldierWebmaster extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     0: new SimpleAttackClass(AttackType.NET, 1),
     1: new SimpleAttackClass(AttackType.NET, 1),
-  });
+  };
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
   name = 'Webmaster';
-  shields = new ShieldsClass({});
+  shields = {};
   enableMovement = false;
 }
 
 class MolochSoldierStormTrooper extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     1: new SimpleAttackClass(AttackType.SHOT, 1),
-  });
+  };
   board = new BoardTokenClass({ hp: 2, attackRound: [2, 1] });
   name = 'Storm Trooper';
-  shields = new ShieldsClass({});
+  shields = {};
   enableMovement = false;
 }
 
 class MolochSoldierWatchman extends TokenSoldierClass {
-  attacks = new AttacksClass({
+  attacks = {
     0: new SimpleAttackClass(AttackType.SHOT, 1),
     2: new SimpleAttackClass(AttackType.SHOT, 1),
-  });
-  shields = new ShieldsClass({
+  };
+  shields = {
     1: new SimpleShieldClass(1),
-  });
+  };
   board = new BoardTokenClass({ hp: 1, attackRound: [2] });
   enableMovement = false;
   name = 'Watchman';
 }
 
 class MedicEnhancement extends TokenEnhancementClass {
-  enhancements = new EnhancementsClass({
+  enhancements = {
     1: new SimpleEnhancementClass(1, EnhancementType.HP),
     3: new SimpleEnhancementClass(1, EnhancementType.HP),
     5: new SimpleEnhancementClass(1, EnhancementType.HP),
-  });
+  };
   name = 'Medic';
   board = new BoardTokenClass({});
 }
 
 class OfficerEnhancement extends TokenEnhancementClass {
-  enhancements = new EnhancementsClass({
+  enhancements = {
     0: new SimpleEnhancementClass(1, EnhancementType.MELEE),
     2: new SimpleEnhancementClass(1, EnhancementType.MELEE),
     4: new SimpleEnhancementClass(1, EnhancementType.MELEE),
-  });
+  };
   name = 'Officer';
   board = new BoardTokenClass({});
 }
 
 class SuperOfficerEnhancement extends TokenEnhancementClass {
-  enhancements = new EnhancementsClass({
+  enhancements = {
     0: new SimpleEnhancementClass(1, EnhancementType.MELEE),
     1: new SimpleEnhancementClass(1, EnhancementType.MELEE),
     2: new SimpleEnhancementClass(1, EnhancementType.MELEE),
-  });
+  };
   name = 'Super-officer';
   board = new BoardTokenClass({ hp: 2, attackRound: [0] });
 }
 
 class ScoutEnhancement extends TokenEnhancementClass {
-  enhancements = new EnhancementsClass({
+  enhancements = {
     1: new SimpleEnhancementClass(1, EnhancementType.SPEED),
     3: new SimpleEnhancementClass(1, EnhancementType.SPEED),
     5: new SimpleEnhancementClass(1, EnhancementType.SPEED),
-  });
+  };
   name = 'Scout';
-  board = new BoardTokenClass({});
+  board = new BoardTokenClass({ hp: 1, attackRound: [0]});
 }
 
 class BrainEnhancement extends TokenEnhancementClass {
-  enhancements = new EnhancementsClass({
+  enhancements = {
     1: [new SimpleEnhancementClass(1, EnhancementType.MELEE), new SimpleEnhancementClass(1, EnhancementType.SHOT)],
     3: [new SimpleEnhancementClass(1, EnhancementType.MELEE), new SimpleEnhancementClass(1, EnhancementType.SHOT)],
     5: [new SimpleEnhancementClass(1, EnhancementType.MELEE), new SimpleEnhancementClass(1, EnhancementType.SHOT)],
-  });
+  };
   name = 'Brain';
   board = new BoardTokenClass({});
 }
 
 class MotherEnhancement extends TokenEnhancementClass {
-  enhancements = new EnhancementsClass({
+  enhancements = {
     1: new SimpleEnhancementClass(1, EnhancementType.REPEATATTACK),
-  });
+  };
   name = 'Mother';
   board = new BoardTokenClass({});
 }

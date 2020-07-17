@@ -1,5 +1,5 @@
 import {Army} from "./hex.model";
-import { TokenClass } from '../classes/token.classes';
+import { BoardTokenClass, TokenClass } from '../classes/token.classes';
 
 export interface Dictionary<T> {
   [key: string]: T;
@@ -10,6 +10,6 @@ export interface Player {
   armyType: Army;
   ready?: boolean;
   color?: string;
-  tokens?: TokenClass[];
+  tokens?: any[];
 }
 

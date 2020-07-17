@@ -49,7 +49,8 @@ export enum AttackType {
   MELEE = 'MELEEATTACK',
   SHOT = 'SHOTATTACK',
   GAUSS = 'GAUSSATTACK',
-  NET = 'NET'
+  NET = 'NET',
+  SNIPER = 'SNIPER'
 }
 
 export enum EnhancementType {

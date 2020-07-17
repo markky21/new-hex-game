@@ -6,7 +6,6 @@ import { useObservable } from 'react-use';
 import { uiQuery } from '../../../../../store/ui/ui.query';
 import { uiStore } from '../../../../../store/ui/ui.store';
 import { animated, useSpring } from '@react-spring/three';
-import { TokenClass } from "../../../../../classes/token.classes";
 import { gameQuery } from '../../../../../store/game/game.query';
 
 const panelHeight = (height) => height * 0.25;
@@ -23,7 +22,7 @@ export const TokensPanel: React.FC = React.memo(() => {
     config: { mass: 10, tension: 2000, friction: 300, precision: 0.00001 },
   });
 
-  const createTokenElements = (tokens: TokenClass[]) => {
+  const createTokenElements = (tokens: any[]) => {
     if (tokens) {
       return tokens.map((token, index) => (
             <Suspense key={`handToken${index}`} fallback={null}>

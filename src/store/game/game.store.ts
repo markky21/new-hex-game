@@ -1,6 +1,5 @@
 import { Player } from '../../models/main.model';
 import { Store, StoreConfig } from '@datorama/akita';
-import { TokenClass } from '../../classes/token.classes';
 
 export interface GameState {
   thisPlayer?: Player;
@@ -21,16 +20,6 @@ export function createInitialGameState(): GameState {
 export class GameStore extends Store<GameState> {
   constructor() {
     super(createInitialGameState());
-  }
-
-  gameStartUpdate(toState: GameState): void {
-    const { started, players, thisPlayer } = toState;
-
-    this.update({ started, players, thisPlayer });
-  }
-
-  tokensUpdate(tokens: TokenClass[]): void {
-    this.update({ thisPlayer: {...this.getValue().thisPlayer, tokens}});
   }
 }
 

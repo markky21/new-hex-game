@@ -1,14 +1,14 @@
 import { Player } from '../models/main.model';
-import { gameStore } from '../store/game/game.store';
+import { GameStoreService, gameStoreService } from '../store/game/game-store.service';
 
 class MainService {
-  constructor() {
+  constructor(private gameStoreService: GameStoreService) {
 
   }
 
   startTheGame(players: Player[], thisPlayer): void {
-    gameStore.gameStartUpdate({ started: true, players, thisPlayer})
+    this.gameStoreService.gamestoreStartUpdate({ started: true, players, thisPlayer})
   }
 }
 
-export const mainService = new MainService();
+export const mainService = new MainService(gameStoreService);

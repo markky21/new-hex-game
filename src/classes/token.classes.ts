@@ -31,16 +31,22 @@ export class EnhancementsClass {
 }
 
 export class BoardTokenClass implements BoardToken {
+  name: string;
   position: string;
   direction: number;
   enableRotation: boolean;
+  attacks: Dictionary<SimpleAttackClass | SimpleAttackClass[]>;
+  shields: Dictionary<SimpleShieldClass | SimpleShieldClass[]>;
+  enhancements: Dictionary<SimpleEnhancementClass | SimpleEnhancementClass[]>;
   hp: number;
   poisoned: boolean;
   caughtByNet: boolean;
   attackRound: number[];
 
   constructor(initial?: Partial<BoardToken>) {
-    Object.entries(initial).map(([key, value]) => (this[key] = value));
+    if (initial) {
+      Object.entries(initial).map(([key, value]) => (this[key] = value));
+    }
   }
 
   // TODO: add methods for traversing board
@@ -75,21 +81,21 @@ export abstract class TokenClass implements Token {
 export abstract class TokenSoldierClass extends TokenClass implements TokenSoldier {
   type = TokenType.SOLDIER;
   abstract board: BoardTokenClass;
-  abstract attacks: AttacksClass;
-  abstract shields: ShieldsClass;
+  abstract attacks: Dictionary<SimpleAttackClass | SimpleAttackClass[]>;
+  abstract shields: Dictionary<SimpleShieldClass | SimpleShieldClass[]>;
   abstract enableMovement: boolean;
 }
 
-export abstract class TokenBaseClass implements TokenSoldierClass, TokenEnhancementClass {
+export abstract class TokenBaseClass extends BoardTokenClass {
   type = TokenType.BASE;
-  board = new BoardTokenClass({hp: 20, attackRound: [0]});
-  attacks = new AttacksClass({
-    allDirections: new SimpleAttackClass(AttackType.MELEE, 1)
-  });
+  board = new BoardTokenClass({ hp: 20, attackRound: [0] });
+  attacks = {
+    7: new SimpleAttackClass(AttackType.MELEE, 1)
+  };
   abstract enableMovement: boolean;
-  abstract enhancements: EnhancementsClass;
+  abstract enhancements: Dictionary<SimpleEnhancementClass | SimpleEnhancementClass[]>;
   abstract name: string;
-  abstract shields: ShieldsClass;
+  abstract shields: Dictionary<SimpleShieldClass | SimpleShieldClass[]>;
 }
 
 export abstract class TokenActionClass extends TokenClass implements TokenAction {
@@ -100,7 +106,7 @@ export abstract class TokenActionClass extends TokenClass implements TokenAction
 export abstract class TokenEnhancementClass extends TokenClass implements TokenEnhancement {
   type = TokenType.ENHANCEMENT;
   abstract board: BoardTokenClass;
-  abstract enhancements: EnhancementsClass;
+  abstract enhancements: Dictionary<SimpleEnhancementClass | SimpleEnhancementClass[]>;
 }
 
 /**
@@ -120,10 +126,10 @@ export interface ArmyTokenSetInstance {
 }
 
 export interface TokenSoldier extends Token {
-  attacks: AttacksClass;
+  attacks: Dictionary<SimpleAttackClass | SimpleAttackClass[]>;
   board: BoardTokenClass;
   enableMovement: boolean;
-  shields: ShieldsClass;
+  shields: Dictionary<SimpleShieldClass | SimpleShieldClass[]>;
   type: TokenType;
 }
 
@@ -135,5 +141,5 @@ export interface TokenAction {
 export interface TokenEnhancement {
   type: TokenType;
   board: BoardTokenClass;
-  enhancements: EnhancementsClass;
+  enhancements: Dictionary<SimpleEnhancementClass | SimpleEnhancementClass[]>;
 }
