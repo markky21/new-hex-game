@@ -23,6 +23,7 @@ export const Scene: React.FC<SceneProps> = ({ children, debug, scene, mouseDown 
       {debug && <axesHelper />}
       <ThreeMonitor debug={debug} />
 
+
       <Lights />
       <CameraControls />
 

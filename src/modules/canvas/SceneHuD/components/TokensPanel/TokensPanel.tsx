@@ -18,7 +18,7 @@ export const TokensPanel: React.FC = React.memo(() => {
   console.log('tokens on panel', hand);
 
   const { panelPosition } = useSpring({
-    panelPosition: [0, showTokensPanel ? -size.height / 2 + panelHeight(size.height) / 2 : -size.height, 0],
+    panelPosition: [0, showTokensPanel ? 0 :  -panelHeight(size.height), -0.1],
     config: { mass: 10, tension: 2000, friction: 300, precision: 0.00001 },
   });
 
@@ -26,7 +26,7 @@ export const TokensPanel: React.FC = React.memo(() => {
     if (tokens) {
       return tokens.map((token, index) => (
             <Suspense key={`handToken${index}`} fallback={null}>
-              <Token token={token} hexRadius={size.width * 0.1} position={new Vector3(0.2 * size.width * index - size.width * 0.2, 0, 0.1)} />
+              <Token token={token} hexRadius={size.width * 0.05} position={new Vector3(0.2 * size.width * index - size.width * 0.2, 0, 0.1)} />
             </Suspense>
       ))
     }
@@ -38,7 +38,7 @@ export const TokensPanel: React.FC = React.memo(() => {
       <group>
         <mesh>
           <planeBufferGeometry attach="geometry" args={[size.width * 0.9, panelHeight(size.height)]} />
-          <meshBasicMaterial attach="material" color={0xffff00} />
+          <meshBasicMaterial  attach="material" color={0xffff00} />
         </mesh>
       </group>
       <group>

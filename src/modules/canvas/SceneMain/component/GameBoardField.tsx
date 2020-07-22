@@ -13,7 +13,7 @@ const hexRadius = 1;
 export const GameBoardField: React.FC<GameBoardFieldProps> = ({ debug, coordinates, id }) => {
   const hexRotation = useRef(new Euler(0, 0, Math.PI / 6));
   return (
-    <group>
+    <group onClick={() => console.log('click')}>
       <mesh position={coordinates} rotation={hexRotation.current}>
         <circleBufferGeometry attach="geometry" args={[hexRadius, 6]} />
         <meshPhongMaterial attach="material" color={'red'} wireframe={false} />

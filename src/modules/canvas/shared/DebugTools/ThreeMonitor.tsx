@@ -9,14 +9,14 @@ const initRendererStats = () => {
   rendererStats.domElement.style.position = 'fixed';
   rendererStats.domElement.style.left = '0px';
   rendererStats.domElement.style.bottom = '0px';
-  document.body.appendChild(rendererStats.domElement);
+  // document.body.appendChild(rendererStats.domElement);
   return rendererStats;
 };
 
 const initStats = () => {
   const stats = new (Stats as any)();
   stats.showPanel(0);
-  document.body.appendChild(stats.dom);
+  // document.body.appendChild(stats.dom);
   return stats;
 };
 
